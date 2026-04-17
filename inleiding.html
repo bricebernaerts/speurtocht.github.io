@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interrogation - Gent 1345</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Basic resets and font */
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a1a, #2c1810);
+      font-family: 'Cormorant Garamond', serif;
+      color: #eee;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    #main-body {
+      width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    /* Header container, title + navigation on one row */
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      color: gold;
+      font-weight: 600;
+      font-size: 1.5rem;
+      border-bottom: 3px solid gold;
+      user-select: text;
+    }
+    #nav-links a {
+      color: gold;
+      margin-top: 2px;
+      padding: 0.25rem 0.7rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 0.5rem;
+      transition: background-color 0.25s ease;
+      white-space: nowrap;
+    }
+    #nav-links a:hover, #nav-links a:focus {
+      background-color: gold;
+      color: #1a1a1a;
+      outline: none;
+    }
+
+    /* Counter container below title */
+    #counter-container {
+      color: gold;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin: 0.25rem 1rem 0 1rem;
+      user-select: text;
+      text-align: left;
+    }
+
+    /* Interrogation container with horizontal layout */
+    #interrogation {
+      display: flex;
+      gap: 1rem;
+      background: #222;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px 2px #cca300 inset;
+      user-select: text;
+    }
+
+    /* Answers container: vertical stack portrait+name+answers and dialogue next to it */
+    #answers {
+      display: flex;
+      gap: 1rem;
+      color: black;
+    }
+
+    /* Portrait container with fixed width */
+    #portrait-container {
+      background: #3d2b1f;
+      border: 3px solid gold;
+      border-radius: 12px;
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem 0.25rem 0.75rem 0.25rem;
+      box-sizing: border-box;
+      user-select: text;
+    }
+
+    #portrait-container img {
+      width: 100%;
+      border-radius: 12px 12px 0 0;
+      border-bottom: 3px solid gold;
+      user-select: none;
+      pointer-events: none;
+      display: block;
+    }
+    
+    #character-name {
+      width: 100%;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: gold;
+      background: black;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      user-select: text;
+      padding: 0.4rem 0;
+      margin-top: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+    @keyframes scroll-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Answer window below portrait */
+    #answer-window {
+      flex-grow: 1;
+      width: 100%;
+      background: #f5f5dc;
+      border-radius: 10px;
+      padding: 1rem;
+      border-left: 5px solid #9b0000;
+      overflow-y: auto;
+      max-height: 180px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      color: black;
+      line-height: 1.4;
+      user-select: text;
+      box-shadow: inset 0 0 10px #cca300;
+    }
+
+    /* Dialogue window (bigger next to portrait container) */
+    #dialogue-window {
+      flex-grow: 1;
+      width: 635px;
+      background: black;
+      border: 3px solid gold;
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-y: auto;
+      color: white;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      user-select: text;
+      box-sizing: border-box;
+      box-shadow: inset 0 0 20px #cca300;
+      height: 500px;
+      overflow-y: auto;
+    }
+
+    /* Questions container below answers & dialogue horizontally */
+    #questions {
+      margin-top: 1rem;
+      width: 100%;
+    }
+    #questions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, auto);
+      gap: 1rem;
+      background: #150f07;
+      border: 3px solid gold;
+      border-radius: 12px;
+      padding: 1rem;
+      user-select: none;
+      max-height: 180px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    /* Question buttons */
+    .question-btn {
+      background: #3d2b1f;
+      border: 2px solid gold;
+      border-radius: 8px;
+      color: gold;
+      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      padding: 0.5rem 0.7rem;
+      cursor: pointer;
+      box-shadow: inset 0 0 6px #cca300;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .question-btn:hover, .question-btn:focus {
+      background: gold;
+      color: #1a1a1a;
+      outline: none;
+      box-shadow: 0 0 12px 3px gold;
+    }
+    
+    #continue-button {
+      margin-top: 0.3 rem;
+      font-size: 1.1rem;
+      padding: 0.6rem 1.5rem;
+      border-radius: 10px;
+      border: 3px solid gold;
+      background: black;
+      color: gold;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: block;          /* center by block and margin auto */
+      margin: 1rem auto 0;     /* vertical top margin + auto horizontal */
+    }
+    #continue-button:hover, #continue-button:focus {
+      background-color: gold;
+      color: black;
+      outline: none;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="main-body" role="main">
+    <header id="header" role="banner" aria-label="Page title and navigation">
+      <div id="page-title" style="user-select:text;">Verhoor: Petrus</div>
+      <div id="counter-container" aria-live="polite" aria-atomic="true" role="status">
+      Vragen gesteld: 0/4 </div>
+      <nav id="nav-links" aria-label="Primary navigation">
+        <a href="event1.html" tabindex="0">Event 1</a>
+      </nav>
+    </header>
+
+    <section id="interrogation" aria-label="Interrogation main area">
+      <div id="answers" aria-live="polite" aria-atomic="true">
+        <aside id="portrait-container" aria-label="Portrait, name and answers of Petrus Boomans">
+          <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas7.png" alt="Portrait of Petrus Boomans" />
+          <div id="character-name" aria-live="polite">Petrus Boomans</div>
+          <section id="answer-window" tabindex="0" aria-label="Previous answers log">
+            <!-- Previous answers will appear here -->
+          </section>
+        </aside>
+
+        <section id="dialogue-window" tabindex="0" aria-label="Current dialogue answer">
+          Mijnheer de baljuw. Ge vraagt mij wat ik gezien heb? Ik zal het u zeggen. Toen Willem viel, stond ik buiten, zoals meerdere getuigen kunnen bevestigen. Binnenin waren ze met zes... Buiten Lievens vetrouw ik hen voor geen haar.
+        </section>
+      </div>
+    </section>
+
+    <nav id="questions" aria-label="Question options">
+      <div id="questions-grid" role="list">
+        <button class="question-btn" data-next="diai2" tabindex="0" role="listitem">Waarom? Vertel...</button>
+        <button class="question-btn" data-next="diai3" tabindex="0" role="listitem">Zag u...</button>
+        <button class="question-btn" data-next="diai4" tabindex="0" role="listitem">Had Willem...</button>
+        <button class="question-btn" data-next="diai5" tabindex="0" role="listitem">Wie had...</button>
+      </div>
+      <button id="continue-button" class="hidden" aria-label="Continue to Event 1">Doorgaan</button>
+    </nav>
+  </div>
+
+  <script>
+    const dialogueData = {
+      diai1: {
+        text: `Mijnheer de baljuw. Ge vraagt mij wat ik gezien heb? Ik zal het u zeggen. Toen Willem viel, stond ik buiten, zoals meerdere getuigen kunnen bevestigen. Binnenin waren ze met zes... Buiten Lievens vetrouw ik hen voor geen haar.`,
+        options: [
+          { text: "Waarom? Vertel...", next: "diai2" },
+          { text: "Zag u...", next: "diai2" },
+          { text: "Had Willem...", next: "diai2" },
+          { text: "Wie had...", next: "diai2" }
+        ]
+      },
+      diai2: {
+        text:
+          `De Eerste van hen is Jan de Wever. Een man van de gilden, en bepaald geen bondgenoot van Merseman en Artevelde. De geruchten zijn dat het slecht afloopt voor iedereen die hem te lang aankijkt. Vandaar kijkt iedereen netjes naar zijn schoenen als hij passeert.`,
+        options: [
+          { text: "...", next: "diai3" }
+        ]
+      },
+      diai3: {
+        text:
+          `Dan is er Beatrijs Penninck. Een speciaal geval. Noemt zichzelf een kunstenares. Ze zeggen dat ze fijne handen heeft.`,
+        options: [
+          { text: "...", next: "diai4" }
+        ]
+      },
+      diai4: {
+        text:
+          `Lodewijk Manskint: De jonge boef hoef ik wellicht niet aan u voor te stellen. Altijd in de problemen. Vechtpartijen, diefstallen... En toch heeft hij tot nu toe nooit meer dan op een tik op de vingers gekregen.`,
+        options: [
+          { text: "...", next: "diai5" }
+        ]
+      },
+      diai5: {
+        text:
+          `Ah Lievens Quadquaet. Ik ken hem al jaren. Altijd vriendelijk, altijd bereid om te helpen. Misschien een beetje te goed voor deze wereld. Hij zal hiermee niets te maken hebben.`,
+        options: [
+          { text: "...", next: "diai6" }
+        ]
+      },
+      diai6: {
+        text:
+          `Broeder Johannes… die zwijgt als het graf. Wat hij hier zo vaak te zoeken heeft, is mij een raadsel. En ge zou niet geloven op welke uren hij hier ’s ochtends aankomt of vertrekt.`,
+        options: [
+          { text: "...", next: "diai7" }
+        ]
+      },
+      diai7: {
+        text:
+          `Wie vergeet ik nog…? Oh, natuurlijk, Elisabeth. Willem's echtgenoot. Laat u niet misleiden, mijnheer, zij is sluw en slim als geen ander. Alles wat Willem in zijn leven bereikt heeft, heeft hij aan intriges te danken. Verder nog iets?`,
+        options: [
+          { text: "Zag u iemand aan het raam voor of na de val?", next: "diai8" },
+          { text: "Had Willem vijanden?", next: "diai9" },
+          { text:"Hoe was Willem vandaag? Onrustig?", next: "diai10" },
+          { text:"Heeft u iets te maken met deze moord?", next: "diai11" }
+        ]
+      },
+      diai8: {
+        text:
+          `Neen. Niemand.`,
+        options: [
+          { text: "Hoorde u geschreeuw of een worsteling?", next: "diai12" },
+          { text: "Had Willem vijanden?", next: "diai9" },
+          { text:"Hoe was Willem vandaag? Onrustig?", next: "diai10" },
+          { text:"Heeft u iets te maken met deze moord?", next: "diai11" }
+        ]
+      },
+      
+      diai9: {
+        text:
+          `Teveel om te tellen. Hij en Kapitein van Artevelde maakten elke week wel iemand woedend.`,
+        options: [
+          { text: "Zag u iemand aan het raam voor of na de val?", next: "diai8" },
+          { text: "Hoorde u geschreeuw of een worsteling?", next: "diai12" },
+          { text:"Hoe was Willem vandaag? Onrustig?", next: "diai10" },
+          { text:"Heeft u iets te maken met deze moord?", next: "diai11" }
+        ]
+      },
+      
+      diai10: {
+        text:
+          `Hij was ongebruikelijk kalm vandaag, waarschijnlijk omdat de ruzie met zijn vrouw bijgelegd is.`,
+        options: [
+          { text: "Zag u iemand aan het raam voor of na de val?", next: "diai8" },
+          { text: "Had Willem vijanden?", next: "diai9" },
+          { text:"Ruzie? Waarover?", next: "diai13" },
+          { text:"Heeft u iets te maken met deze moord?", next: "diai11" }
+        ]
+      },
+      
+      diai11: {
+        text:
+          `Neen.`,
+        options: [
+          { text: "Zag u iemand aan het raam voor of na de val?", next: "diai8" },
+          { text: "Had Willem vijanden?", next: "diai9" },
+          { text:"Hoe was Willem vandaag? Onrustig?", next: "diai10" },
+          { text:"Hoorde u geschreeuw of een worsteling?", next: "diai12" }
+        ]
+      },
+      diai12: {
+        text:
+          `Het was muisstil.`,
+        options: [
+          { text: "Zag u iemand aan het raam voor of na de val?", next: "diai8" },
+          { text: "Had Willem vijanden?", next: "diai9" },
+          { text:"Hoe was Willem vandaag? Onrustig?", next: "diai10" },
+          { text:"Heeft u iets te maken met deze moord?", next: "diai11" }
+        ]
+      },
+      diai13: {
+        text:
+          `Daar weet ik niets van. Best aan Mevrouw de Mersemeer vragen.`,
+        options: [
+          { text: "Zag u iemand aan het raam voor of na de val?", next: "diai8" },
+          { text: "Had Willem vijanden?", next: "diai9" },
+          { text:"Hoe was Willem vandaag? Onrustig?", next: "diai10" },
+          { text:"Heeft u iets te maken met deze moord?", next: "diai11" }
+        ]
+      },
+    }
+    
+    const continueBtn = document.getElementById('continue-button');
+    const answerWindow = document.getElementById('answer-window');
+    const dialogueWindow = document.getElementById('dialogue-window');
+    const questionsGrid = document.getElementById('questions-grid');
+    const counterContainer = document.getElementById('counter-container');
+    
+    continueBtn.addEventListener('click', () => {
+      window.location.href = 'event1.html';
+    });
+
+    // Track number of questions from diai7 and descendants (diai7,...diai13 plus any others)
+    // Let's keep a Set of asked question keys from diai7 and on
+    const diai7Nodes = new Set([
+      'diai8', 'diai9', 'diai10', 'diai11', 'diai12', 'diai13'
+    ]);
+    let questionsAskedFromDiai7 = new Set();
+
+    function updateCounter() {
+      const count = questionsAskedFromDiai7.size;
+      counterContainer.textContent = `Vragen gesteld: ${count}/4`;
+    }
+
+  function renderQuestions(options) {
+    // If 4 questions asked, show only continue button
+    if (questionsAskedFromDiai7.size >= 4) {
+      questionsGrid.style.display = 'none';
+      continueBtn.classList.remove('hidden');
+      return;
+    }
+
+    questionsGrid.innerHTML = '';
+    options.forEach(opt => {
+      if (opt.next !== null) {
+        const btn = document.createElement('button');
+        btn.className = 'question-btn';
+        btn.textContent = opt.text;
+        btn.setAttribute('data-next', opt.next);
+        btn.setAttribute('tabindex', '0');
+        btn.setAttribute('role', 'listitem');
+        btn.addEventListener('click', () => {
+          renderDialogue(opt.next, opt.text);
+        });
+        questionsGrid.appendChild(btn);
+      }
+    });
+
+    if (questionsGrid.children.length === 0) {
+      continueBtn.classList.remove('hidden');
+      questionsGrid.style.display = 'none';
+    } else {
+      continueBtn.classList.add('hidden');
+      questionsGrid.style.display = 'grid';
+    }
+  }
+
+    // Append question + answer pair to dialogueWindow (full history)
+    function appendQAPair(question, answer) {
+      const qElem = document.createElement('p');
+      qElem.style.fontWeight = '700';
+      qElem.style.margin = '0.3rem 0 0.6rem 0';
+      qElem.style.color = '#90ee90';
+      qElem.textContent = `You: ${question}`;
+
+      const aElem = document.createElement('p');
+      aElem.style.margin = '0 0 1rem 0';
+      aElem.textContent = answer;
+
+      dialogueWindow.appendChild(qElem);
+      dialogueWindow.appendChild(aElem);
+
+      // Scroll dialogue window to bottom
+      dialogueWindow.scrollTop = dialogueWindow.scrollHeight;
+    }
+
+
+    function renderDialogue(nodeKey, lastQuestion = null) {
+      const node = dialogueData[nodeKey];
+      if (!node) return;
+
+      // Update answerWindow with last single answer only
+      answerWindow.textContent = node.text;
+      answerWindow.scrollTop = 0;
+
+      if (lastQuestion) {
+        // Append full Q&A pair to dialogueWindow (history)
+        appendQAPair(lastQuestion, node.text);
+      } else {
+        // First call, clear all history in dialogueWindow and add first text
+        dialogueWindow.innerHTML = '';
+        const firstAnswer = document.createElement('p');
+        firstAnswer.textContent = node.text;
+        dialogueWindow.appendChild(firstAnswer);
+      }
+
+      // If nodeKey is in diai7 set and lastQuestion is not null (meaning question just asked), track it
+      if (diai7Nodes.has(nodeKey) && lastQuestion !== null) {
+        questionsAskedFromDiai7.add(lastQuestion);
+        updateCounter();
+      }
+
+      // Render question buttons or clear
+      if (node.options && node.options.length > 0) {
+        renderQuestions(node.options);
+      } else {
+        questionsGrid.innerHTML = '';
+      }
+
+      // Optional: fade effect on answerWindow
+      answerWindow.style.opacity = '0';
+      setTimeout(() => {
+        answerWindow.style.opacity = '1';
+        answerWindow.focus();
+      }, 100);
+    }
+
+    // Initialize with start node
+    renderDialogue('diai1');
+  </script>
+</body>
+</html>

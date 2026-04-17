@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Finale - Gent 1345 Murder Mystery</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #2c1810);
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 30px 20px;
+      text-align: center;
+      user-select: none;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 30px;
+      color: gold;
+      text-shadow:
+        -2px -2px 0 black,
+        2px -2px 0 black,
+        -2px 2px 0 black,
+        2px 2px 0 black;
+    }
+
+    form {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.75);
+      border: 3px solid gold;
+      border-radius: 12px;
+      padding: 30px 25px;
+      box-sizing: border-box;
+      text-align: left;
+      user-select: text;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: gold;
+      user-select: text;
+    }
+
+    fieldset {
+      border: 2px solid gold;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      padding: 15px 20px;
+    }
+
+    legend {
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 0 8px;
+      color: gold;
+    }
+
+    .options-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border: 2px solid gold;
+      border-radius: 10px;
+      padding: 8px 12px;
+      transition: background 0.3s, color 0.3s;
+      user-select: none;
+      min-width: 140px;
+      justify-content: center;
+    }
+    .option-label:hover,
+    .option-label:focus-within {
+      background: gold;
+      color: black;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    button[type="submit"] {
+      background: gold;
+      border: none;
+      color: black;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 12px 25px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin: 0 auto;
+      user-select: none;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background: #cca300;
+      outline: none;
+    }
+
+    .bannerlink {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .bannerlink a {
+      color: gold;
+      font-weight: bold;
+      border: 2px solid gold;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .bannerlink a:hover, .bannerlink a:focus {
+      background: gold;
+      color: black;
+      outline: none;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Oordeel</h1>
+
+  <div class="bannerlink">
+    <a href="index.html">Main Menu</a>
+    <a href="verdachten.html">Verdachten</a>
+    <a href="journal.html">Journal</a>
+    <a href="event1.html">Events</a>
+  </div>
+
+  <form id="finale-form" aria-label="Final accusation form">
+    <!-- Suspect Choices -->
+    <fieldset>
+      <legend>Kies een verdachte</legend>
+      <div class="options-container" role="radiogroup" aria-labelledby="suspect-label">
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="suspect" value="Jan de Wever" aria-labelledby="suspect1-label" />
+          <span id="suspect1-label">Jan de Wever</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="suspect" value="Beatrijs Penninck" aria-labelledby="suspect2-label" />
+          <span id="suspect2-label">Beatrijs Penninck</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="suspect" value="Lodewijk Manskint" aria-labelledby="suspect3-label" />
+          <span id="suspect3-label">Lodewijk Manskint</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="suspect" value="Lieven Quadquaet" aria-labelledby="suspect4-label" />
+          <span id="suspect4-label">Lieven Quadquaet</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="suspect" value="Broeder Johannes" aria-labelledby="suspect5-label" />
+          <span id="suspect5-label">Broeder Johannes</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="suspect" value="Elisabeth de Merseman" aria-labelledby="suspect6-label" />
+          <span id="suspect6-label">Elisabeth de Merseman</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- Weapon Choices -->
+    <fieldset>
+      <legend>Kies het moordwapen</legend>
+      <div class="options-container" role="radiogroup" aria-labelledby="weapon-label">
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="weapon" value="Dagger" aria-labelledby="weapon1-label" />
+          <span id="weapon1-label">Dolk</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="weapon" value="Poison" aria-labelledby="weapon2-label" />
+          <span id="weapon2-label">Gif</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="weapon" value="Blunt Object" aria-labelledby="weapon3-label" />
+          <span id="weapon3-label">Stomp Voorwerp</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="weapon" value="Strangulation" aria-labelledby="weapon4-label" />
+          <span id="weapon4-label">Verstikking</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- Motive Choices -->
+    <fieldset>
+      <legend>Kies een motief</legend>
+      <div class="options-container" role="radiogroup" aria-labelledby="motive-label">
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="motive" value="Revenge" aria-labelledby="motive1-label" />
+          <span id="motive1-label">Wraak</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="motive" value="Greed" aria-labelledby="motive2-label" />
+          <span id="motive2-label">Gierigheid</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="motive" value="Jealousy" aria-labelledby="motive3-label" />
+          <span id="motive3-label">Jaloezie</span>
+        </label>
+        <label class="option-label" tabindex="0">
+          <input type="radio" name="motive" value="Self-defense" aria-labelledby="motive4-label" />
+          <span id="motive4-label">Zelfverdediging</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <button type="submit" aria-label="Submit your accusation">Indienen</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('finale-form');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const suspect = form.elements['suspect'].value;
+      const weapon = form.elements['weapon'].value;
+      const motive = form.elements['motive'].value;
+
+      if (!suspect || !weapon || !motive) {
+        alert("Please choose a suspect, a murder weapon, and a motive before submitting.");
+        return;
+      }
+
+      alert(
+        `Je hebt gekozen:\n\nVerdachte: ${suspect}\nMoordwapen: ${weapon}\nMotief: ${motive}\n\nBedankt voor het spelen!`
+      );
+
+      // Optionally redirect or clear form here, e.g.:
+      // form.reset();
+      // window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

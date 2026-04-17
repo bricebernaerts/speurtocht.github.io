@@ -168,9 +168,8 @@
       padding: 0.5rem 0.7rem;
       cursor: pointer;
       box-shadow: inset 0 0 6px #cca300;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      word-break: break-word;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
     .question-btn:hover, .question-btn:focus {
@@ -301,6 +300,118 @@
           text:
             `Cordiaal. We werkten samen waar nodig en verschilden van mening waar het moest.`,
           options: [
+            { text: "Nochthans zijn de geruchten dat van Artevelde via Willem druk uitoefent op handelaars. Afpersing, onder het mom van orde...", next: "diai8" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai8: {
+          text:
+            `Geruchten? Neen, mijnheer de baljuw: dat zijn feiten. Dat is hoe het hier en elders verloopt. Tenminste zijn de Merseman en mezelf het eens over de noodzaak van bepaalde buitenlandse banden.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+         diai9: {
+          text:
+            `Omdat hetzelfde geldt voor de anderen.`,
+          options: [
+            { text: "Wie van hen is de dader?", next: "diai10" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai10: {
+          text:
+            `Dat weet ik niet. Persoonlijk zou ik het onderzoek heroriënteren op de ondeugdelijke praktijken van broeder Johannes. `,
+          options: [
+            { text: "Welke praktijken?", next: "diai11" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai11: {
+          text:
+            `Zijn nachtelijke bezoeken aan het pand van Dame Rosenbroek.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+      }
+    },
+
+    actie2: {
+      name: "Beatrijs Penninck",
+      portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas15.png",
+      dialogueData: {
+        diai1: {
+          text: `Beste Heer, waarom houdt u mij aan?`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai2: {
+          text:
+            `Ik was hier op verzoek van Willem voor zaken...niets ongewoons.`,
+          options: [
+            { text: "Welke zaken precies", next: "diai3" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai3: {
+          text:
+            `De belangen van de gilden. Ik hoef u niet uit te leggen hoe cruciaal die zijn voor Gent.`,
+          options: [
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai4: {
+          text:
+            `In de salon, aan het wachten totdat Willem klaar was om me te ontvangen.`,
+          options: [
+            { text: "Kan iemand uw alibi bevestigen?", next: "diai5" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai5: {
+          text:
+            `Lievens Quadquaet. Kerel bleef maar aandringen dat ik hem geld moest lenen voor zijn nieuwste onderneming.`,
+          options: [
+            { text: "Heeft u het hem geleend?", next: "diai6" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai6: {
+          text:
+            `Absoluut niet. En ik vermoed dat ik niet de enige was die hem geweigerd heeft.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai7: {
+          text:
+            `Cordiaal. We werkten samen waar nodig en verschilden van mening waar het moest.`,
+          options: [
             { text: "Nochthans zijn de geruchten dat van Artevelde via Willem druk uitoefende op handelaars. Afpersing, onder het mom van orde...", next: "diai8" },
             { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
             { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
@@ -348,65 +459,158 @@
       }
     },
 
-    actie2: {
-      name: "Beatrijs Penninck",
-      portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas15.png",
-      dialogueData: {
-        diai1: {
-          text: `Beatrijs kijkt je met een glimlach aan, maar angst ligt verborgen in haar ogen.`,
-          options: [
-            { text: "Bent u schuldig?", next: "diai2" },
-            { text: "Waar was u op dat moment?", next: "diai3" }
-          ]
-        },
-        diai2: {
-          text: `Ik was aan het werk in het atelier, niemand kan dat ontkennen.`,
-          options: [
-            { text: "Heeft u vijanden?", next: "diai4" }
-          ]
-        },
-        diai3: {
-          text: `Sommigen zeggen dat ik geheimen heb, maar ik ben onschuldig.`,
-          options: [
-            { text: "Vertel meer", next: "diai5" }
-          ]
-        },
-        diai4: {
-          text: `Vijanden? Iedereen heeft vijanden, maar ik koester geen haat.`,
-          options: [
-            { text: "Bent u zeker?", next: "diai6" }
-          ]
-        },
-        diai5: {
-          text: `Soms lijken de dingen niet wat ze zijn.`,
-          options: []
-        },
-        diai6: {
-          text: `Ik vraag u zich te bedenken dat waarheid subjectief kan zijn.`,
-          options: []
-        }
-      }
-    },
-
     actie3: {
       name: "Lodewijk Manskint",
       portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas6.png",
       dialogueData: {
         diai1: {
-          text: `Wat wilt ge weten? Ik ben niet van plan me te laten doen.`,
+          text: `Laat me gaan dwaas, of ben je te achterlijk om te zien dat ik niet betrokken ben in deze affaire.`,
           options: [
-            { text: "Waarom zo boos?", next: "diai2" },
-            { text: "Heeft u het gedaan?", next: "diai3" }
+            { text: "Neen? Waarom was je dan in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar was je op het moment van de val?", next: "diai8" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
           ]
         },
         diai2: {
-          text: `Iedereen heeft een reden... zelfs ik.`,
-          options: []
+          text:
+            `Dat gaat je niet aan, rat.`,
+          options: [
+            { text: "Herken je deze sierraden?", next: "diai3" },
+            { text: "Waar was je op het moment van de val?", next: "diai8" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
         },
         diai3: {
-          text: `Dat weet ik niet, maar ik zal alles vertellen.`,
-          options: []
-        }
+          text:
+            `Nooit van mijn leven gezien.`,
+          options: [
+            { text: "Je had ze aan tijdens je laatste bezoek aan de cellen", next: "diai4" },
+            { text: "Waar was je op het moment van de val?", next: "diai8" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
+        },
+        diai4: {
+          text:
+            `Wellicht zijn sierraden moeilijk van elkaar te differentieren voor boerenkinkels. `,
+          options: [
+            { text: "...En iemand had ze zomaar achtergelaten in de gastkamer van de Merseman.", next: "diai5" },
+            { text: "Waar was je op het moment van de val?", next: "diai8" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
+        },
+        diai5: {
+          text:
+            `De één zijn schat is de ander zijn rommel...Laat me gaan!`,
+          options: [
+            { text: "Wil je vertrekken? Wees dan eerlijk over je relatie met Willem.", next: "diai6" },
+            { text: "Waar was je op het moment van de val?", next: "diai8" },
+            { text: "Wie is volgens jou de dader", next: "diai11" },
+            { text: "Nooit. Je had motief. Je had toegang. Beken of blijf hier maar rotten!", next: "diai15" }
+          ]
+        },
+        diai6: {
+          text:
+            `Ik heb geen flauw idee waarover je het hebt. Het is Beatrijs die een relatie met hem heeft. Maar niet doorvertellen aan Elisabeth heh.`,
+          options: [
+            { text: "Wat voor relatie hebben ze?", next: "diai7" },
+            { text: "Waar was je op het moment van de val?", next: "diai8" },
+            { text: "Wie is volgens jou de dader", next: "diai11" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
+        },
+        diai7: {
+          text:
+            `Gij zijt niet de snuggerste der knechten. Ze vrijen. Al jaren, iedereen weet het.`,
+          options: [
+            { text: "Wie is volgens jou de dader", next: "diai11" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar was je op het moment van de val?", next: "diai8" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
+        },
+        diai8: {
+          text:
+            `Op de pot, me helemaal leeg aan het schijten.`,
+          options: [
+            { text: "Spijtig, dan kan niemand je alibi bevestigen.", next: "diai9" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
+        },
+        diai9: {
+          text:
+            `Je hebt het verkeerd, Elisabeth was erbij en vieze Johannes was aan het piepen.`,
+          options: [
+            { text: "...", next: "diai2" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai8" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
+        },
+        diai10: {
+          text:
+            `Volgende keer mag je er ook bij zijn. Heh.`,
+          options: [
+            { text: "Wie is volgens jou de dader", next: "diai11" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai8" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
+        },
+         diai11: {
+          text:
+            `Geeraert Denys. Willem en hem hebben zelden oog tot oog gezien. Of Lievens Quadquaet. Iemand die zo vriendelijk is kan niet anders dan ernstig gestoord zijn.`,
+          options: [
+            { text: "Waarover waren Denys en Mersemeer in geschil?", next: "diai12" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai8" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" }
+          ]
+        },
+        diai12: {
+          text:
+            `Recent? Hoe best af te rekenen met de resterende volders. Ook de internationale ontwikkelingen veroorzaken drama.`,
+          options: [
+            { text: "Internationale ontwikkelingen? Ga door.", next: "diai11" },
+            { text: "Doe me niet lachen...alsof jij daarover iets begrijpt", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai8" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" }
+          ]
+        },
+        diai13: {
+          text:
+            `Neen. Het interesseert me geen bal.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai8" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" },
+            { text: "Je had motief. Je had toegang. Waarom zou ik je niet opsluiten tot je bekent?", next: "diai15" }
+          ]
+        },
+        diai14: {
+          text:
+            `Laatst waren ze aan het roepen over de samenwerking tussen Engeland en Gent.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai8" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" }
+          ]
+        },
+        diai15: {
+          text:
+            `Ik beken dat je absurde conclusies mij serieus irriteren.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai8" },
+            { text: "Wie is volgens jou de dader", next: "diai11" },
+            { text: "Beschrijf je relatie met Willem De Merseman.", next: "diai6" }
+          ]
+        },
       }
     },
 
@@ -415,20 +619,110 @@
       portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas5.png",
       dialogueData: {
         diai1: {
-          text: `Ik was bezig mensen te helpen, niet te doden.`,
+          text: `Mijnheer de baljuw. Ik neem aan dat dit snel kan verlopen. Mijn tijd is waardevol.`,
           options: [
-            { text: "Waarom liegt u dan?", next: "diai2" },
-            { text: "Kunt u bewijzen waar u was?", next: "diai3" }
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
           ]
         },
         diai2: {
-          text: `Omdat sommige dingen niet makkelijk zijn om uit te leggen.`,
-          options: []
+          text:
+            `Ik was hier op verzoek van Willem voor zaken...niets ongewoons.`,
+          options: [
+            { text: "Welke zaken precies", next: "diai3" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
         },
         diai3: {
-          text: `Ja, dat kan ik.`,
-          options: []
-        }
+          text:
+            `De belangen van de gilden. Ik hoef u niet uit te leggen hoe cruciaal die zijn voor Gent.`,
+          options: [
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai4: {
+          text:
+            `In de salon, aan het wachten totdat Willem klaar was om me te ontvangen.`,
+          options: [
+            { text: "Kan iemand uw alibi bevestigen?", next: "diai5" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai5: {
+          text:
+            `Lievens Quadquaet. Kerel bleef maar aandringen dat ik hem geld moest lenen voor zijn nieuwste onderneming.`,
+          options: [
+            { text: "Heeft u het hem geleend?", next: "diai6" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai6: {
+          text:
+            `Absoluut niet. En ik vermoed dat ik niet de enige was die hem geweigerd heeft.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai7: {
+          text:
+            `Cordiaal. We werkten samen waar nodig en verschilden van mening waar het moest.`,
+          options: [
+            { text: "Nochthans zijn de geruchten dat van Artevelde via Willem druk uitoefende op handelaars. Afpersing, onder het mom van orde...", next: "diai8" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai8: {
+          text:
+            `Geruchten? Neen, mijnheer de baljuw: dat zijn feiten. Dat is hoe het hier en elders verloopt. Tenminste waren de Merseman en mezelf het eens over de noodzaak van bepaalde buitenlandse banden.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+         diai9: {
+          text:
+            `Omdat hetzelfde geldt voor de anderen.`,
+          options: [
+            { text: "Wie van hen is de dader?", next: "diai10" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai10: {
+          text:
+            `Dat weet ik niet. Persoonlijk zou ik het onderzoek heroriënteren op de ondeugdelijke praktijken van broeder Johannes. `,
+          options: [
+            { text: "Welke praktijken?", next: "diai11" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai11: {
+          text:
+            `Zijn nachtelijke bezoeken aan het pand van Dame Rosenbroek.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
       }
     },
 
@@ -437,15 +731,110 @@
       portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/ja.png",
       dialogueData: {
         diai1: {
-          text: `Ik zeg niets. Mijn mond is gesloten.`,
+          text: `Mijnheer de baljuw. Ik neem aan dat dit snel kan verlopen. Mijn tijd is waardevol.`,
           options: [
-            { text: "Waarom zwijgt u?", next: "diai2" }
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
           ]
         },
         diai2: {
-          text: `Soms is zwijgen sterker dan woorden.`,
-          options: []
-        }
+          text:
+            `Ik was hier op verzoek van Willem voor zaken...niets ongewoons.`,
+          options: [
+            { text: "Welke zaken precies", next: "diai3" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai3: {
+          text:
+            `De belangen van de gilden. Ik hoef u niet uit te leggen hoe cruciaal die zijn voor Gent.`,
+          options: [
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai4: {
+          text:
+            `In de salon, aan het wachten totdat Willem klaar was om me te ontvangen.`,
+          options: [
+            { text: "Kan iemand uw alibi bevestigen?", next: "diai5" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai5: {
+          text:
+            `Lievens Quadquaet. Kerel bleef maar aandringen dat ik hem geld moest lenen voor zijn nieuwste onderneming.`,
+          options: [
+            { text: "Heeft u het hem geleend?", next: "diai6" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai6: {
+          text:
+            `Absoluut niet. En ik vermoed dat ik niet de enige was die hem geweigerd heeft.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai7: {
+          text:
+            `Cordiaal. We werkten samen waar nodig en verschilden van mening waar het moest.`,
+          options: [
+            { text: "Nochthans zijn de geruchten dat van Artevelde via Willem druk uitoefende op handelaars. Afpersing, onder het mom van orde...", next: "diai8" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai8: {
+          text:
+            `Geruchten? Neen, mijnheer de baljuw: dat zijn feiten. Dat is hoe het hier en elders verloopt. Tenminste waren de Merseman en mezelf het eens over de noodzaak van bepaalde buitenlandse banden.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+         diai9: {
+          text:
+            `Omdat hetzelfde geldt voor de anderen.`,
+          options: [
+            { text: "Wie van hen is de dader?", next: "diai10" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai10: {
+          text:
+            `Dat weet ik niet. Persoonlijk zou ik het onderzoek heroriënteren op de ondeugdelijke praktijken van broeder Johannes. `,
+          options: [
+            { text: "Welke praktijken?", next: "diai11" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai11: {
+          text:
+            `Zijn nachtelijke bezoeken aan het pand van Dame Rosenbroek.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
       }
     },
 
@@ -454,20 +843,110 @@
       portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas14.png",
       dialogueData: {
         diai1: {
-          text: `Ik was thuis, verdrietig en alleen.`,
+          text: `Mijnheer de baljuw. Ik neem aan dat dit snel kan verlopen. Mijn tijd is waardevol.`,
           options: [
-            { text: "Voelde u zich schuldig?", next: "diai2" },
-            { text: "Had u ruzie met Willem?", next: "diai3" }
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
           ]
         },
         diai2: {
-          text: `Het is moeilijk, maar ik heb niets gedaan.`,
-          options: []
+          text:
+            `Ik was hier op verzoek van Willem voor zaken...niets ongewoons.`,
+          options: [
+            { text: "Welke zaken precies", next: "diai3" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
         },
         diai3: {
-          text: `Onze relatie was moeizaam, ja.`,
-          options: []
-        }
+          text:
+            `De belangen van de gilden. Ik hoef u niet uit te leggen hoe cruciaal die zijn voor Gent.`,
+          options: [
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai4: {
+          text:
+            `In de salon, aan het wachten totdat Willem klaar was om me te ontvangen.`,
+          options: [
+            { text: "Kan iemand uw alibi bevestigen?", next: "diai5" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai5: {
+          text:
+            `Lievens Quadquaet. Kerel bleef maar aandringen dat ik hem geld moest lenen voor zijn nieuwste onderneming.`,
+          options: [
+            { text: "Heeft u het hem geleend?", next: "diai6" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai6: {
+          text:
+            `Absoluut niet. En ik vermoed dat ik niet de enige was die hem geweigerd heeft.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai7: {
+          text:
+            `Cordiaal. We werkten samen waar nodig en verschilden van mening waar het moest.`,
+          options: [
+            { text: "Nochthans zijn de geruchten dat van Artevelde via Willem druk uitoefende op handelaars. Afpersing, onder het mom van orde...", next: "diai8" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai8: {
+          text:
+            `Geruchten? Neen, mijnheer de baljuw: dat zijn feiten. Dat is hoe het hier en elders verloopt. Tenminste waren de Merseman en mezelf het eens over de noodzaak van bepaalde buitenlandse banden.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+         diai9: {
+          text:
+            `Omdat hetzelfde geldt voor de anderen.`,
+          options: [
+            { text: "Wie van hen is de dader?", next: "diai10" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai10: {
+          text:
+            `Dat weet ik niet. Persoonlijk zou ik het onderzoek heroriënteren op de ondeugdelijke praktijken van broeder Johannes. `,
+          options: [
+            { text: "Welke praktijken?", next: "diai11" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai11: {
+          text:
+            `Zijn nachtelijke bezoeken aan het pand van Dame Rosenbroek.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
       }
     }
   };

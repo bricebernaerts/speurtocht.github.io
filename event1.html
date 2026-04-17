@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event 1: Thuis bij Willem de Mersemeer</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #2c1810);
+      background-image: url('https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/speur2.png');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+    header {
+      width: 900px;
+      text-align: center;
+      margin-bottom: 10px;
+      user-select: text;
+    }
+    header h1.page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: gold;
+      text-shadow:
+        -2px -2px 0 black,
+        2px -2px 0 black,
+        -2px 2px 0 black,
+        2px 2px 0 black;
+      margin: 0;
+      padding-bottom: 10px;
+      border-bottom: 3px solid gold;
+    }
+
+    /* Banner container with two counters left and right */
+    #counters-banner {
+      width: 900px;
+      margin-bottom: 30px;
+      padding: 8px 20px;
+      background: black;
+      border: 3px solid gold;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: gold;
+      user-select: text;
+      box-sizing: border-box;
+    }
+    
+    nav.bannerlink {
+      width: 900px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    nav.bannerlink a {
+      color: gold;
+      font-weight: bold;
+      border: 2px solid gold;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    nav.bannerlink a:hover:not(.disabled),
+    nav.bannerlink a:focus:not(.disabled) {
+      background: gold;
+      color: black;
+      outline: none;
+    }
+    nav.bannerlink a.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      cursor: default;
+      border-color: gray;
+      color: gray;
+      user-select: none;
+    }
+
+    main.center-links {
+      width: 900px;
+      display: flex;
+      justify-content: center;
+      gap: 100px;
+      flex-grow: 1;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      user-select: none;
+    }
+    main.center-links .column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 150px;
+    }
+
+    /* Container for each actie + optional lock icon */
+    .actie-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+
+    .actie-button {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 2px solid gold;
+      color: gold;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      user-select: none;
+      flex-grow: 1;
+      text-align: center;
+      transition: background-color 0.25s ease;
+    }
+    .actie-button:hover:not(.disabled):not(.locked) {
+      background-color: rgba(255, 215, 0, 0.3);
+    }
+    .actie-button.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      cursor: default;
+      border-color: gray;
+      color: gray;
+      user-select: text;
+    }
+
+    /* Locked actie buttons appear disabled */
+    .actie-button.locked {
+      pointer-events: none;
+      color: #b22222;
+      border-color: red;
+      background-color: #330000;
+      cursor: default;
+      user-select: text;
+    }
+
+    /* Small lock button next to locked actie */
+    .lock-btn {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: gold;
+      font-size: 20px;
+      line-height: 20px;
+      text-align: center;
+      user-select: none;
+      padding: 0;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline-offset: 2px;
+    }
+    .lock-btn:hover:not(.disabled), .lock-btn:focus:not(.disabled) {
+      background-color: gold;
+      color: black;
+      outline: none;
+    }
+    .lock-btn.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      cursor: default;
+      color: gray;
+    }
+
+    footer.bottom-links-disabled {
+      width: 900px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 15px;
+      border-top: 3px solid gold;
+      user-select: none;
+      opacity: 0.5;
+      cursor: default;
+      color: gray;
+      pointer-events: none;
+    }
+    footer.bottom-links-enabled {
+      width: 900px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 15px;
+      border-top: 3px solid gold;
+      user-select: none;
+      pointer-events: auto;
+      opacity: 1;
+      cursor: pointer;
+      color: gold;
+    }
+    footer.bottom-links-disabled a {
+      font-size: 1rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: gold;
+      background: transparent;
+      border: 2px solid gold;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    footer.bottom-links-enabled a {
+      font-size: 1rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: gold;
+      background: transparent;
+      border: 2px solid gold;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    footer.bottom-links a.bookmarked {
+      color: gold;
+      border-color: gold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="page-title">Event 1: Thuis bij Willem de Mersemeer</h1>
+  </header>
+
+  <!-- Banner with acties voltooid on left, QR-Counter on right -->
+  <div id="counters-banner" aria-live="polite" aria-atomic="true">
+    <div id="actie-counter">Acties voltooid: 0/4</div>
+    <div id="QR-Counter">0/6</div>
+  </div>
+
+  <nav class="bannerlink" aria-label="Hoofdnavigatie">
+    <a href="index.html">Main Menu</a>
+    <a href="verdachten.html">Verdachten</a>
+    <a href="journal.html">Journal</a>
+  </nav>
+
+  <main class="center-links" role="main" aria-label="Acties lijst">
+    <div class="column" aria-label="Acties 1 t/m 6"></div>
+    <div class="column" aria-label="Acties 7 t/m 12 (vergrendeld)"></div>
+  </main>
+
+  <footer class="bottom-links-disabled" aria-label="Navigatie naar evenementen en finale">
+    <a href="event2.html" class="bottom-links-disabled" tabindex="-1" aria-disabled="true">Event 2</a>
+    <a href="event3.html" class="bottom-links-disabled" tabindex="-1" aria-disabled="true">Event 3</a>
+    <a href="event4.html" class="bottom-links-disabled" tabindex="-1" aria-disabled="true">Event 4</a>
+    <a href="event5.html" class="bottom-links-disabled" tabindex="-1" aria-disabled="true">Event 5</a>
+    <a href="finale.html" class="bottom-links-disabled" tabindex="-1" aria-disabled="true">Finale</a>
+  </footer>
+
+<script>
+  const eventKey = 'event1';
+
+  const maxCount = 6;
+  let currentCount = parseInt(localStorage.getItem(`currentCount_${eventKey}`), 10);
+  if (isNaN(currentCount)) currentCount = 0;
+
+  const acties = [
+    { id: 'actie1', label: 'Bezoek het atelier', locked: false },
+    { id: 'actie2', label: 'Doorzoek zijn bureau', locked: false },
+    { id: 'actie3', label: 'Bevraag buren', locked: false },
+    { id: 'actie4', label: 'Bekijk de bibliotheek', locked: false },
+    { id: 'actie5', label: 'De brieven doorlezen', locked: false },
+    { id: 'actie6', label: 'Rommel door de gastkamer', locked: false },
+    { id: 'actie7', label: 'Actie 7', locked: true },
+    { id: 'actie8', label: 'Actie 8', locked: true },
+    { id: 'actie9', label: 'Actie 9', locked: true },
+    { id: 'actie10', label: 'Actie 10', locked: true },
+    { id: 'actie11', label: 'Actie 11', locked: true },
+    { id: 'actie12', label: 'Zoek het moordwapen', locked: true }
+  ];
+
+  const passwords = {
+  'actie7': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+  'actie8': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+  'actie9': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+  'actie10': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+  'actie11': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+  'actie12': ['pass7', 'pass8','pass9','pass10','pass11','pass12']
+};
+
+  const column1 = document.querySelector('main.center-links .column:nth-child(1)');
+  const column2 = document.querySelector('main.center-links .column:nth-child(2)');
+  const actieCounter = document.getElementById('actie-counter');
+  const qrCounter = document.getElementById('QR-Counter');
+  const bottomLinks = document.querySelector('footer');
+  const bottomLinkButtons = bottomLinks.querySelectorAll('a');
+
+  // Retrieve actieList for this event
+  const getActieList = () => {
+    try {
+      return JSON.parse(localStorage.getItem(`actieList_${eventKey}`)) || [];
+    } catch {
+      return [];
+    }
+  };
+
+  const saveActieList = (list) => {
+    localStorage.setItem(`actieList_${eventKey}`, JSON.stringify(list));
+  };
+
+  function updateCounters() {
+    const actieList = getActieList();
+    const actiesDone = Math.min(actieList.length, 4);
+    actieCounter.textContent = `Acties voltooid: ${actiesDone}/4`;
+    qrCounter.textContent = `${currentCount}/${maxCount}`;
+
+    if (actiesDone >= 4) {
+      bottomLinks.classList.remove('bottom-links-disabled');
+      bottomLinks.classList.add('bottom-links-enabled');
+      bottomLinkButtons.forEach(link => {
+        link.classList.remove('disabled');
+        link.removeAttribute('aria-disabled');
+        link.removeAttribute('tabindex');
+      });
+      disableAllActieAndLockButtons(true);
+    } else {
+      bottomLinks.classList.remove('bottom-links-enabled');
+      bottomLinks.classList.add('bottom-links-disabled');
+      bottomLinkButtons.forEach(link => {
+        link.classList.add('disabled');
+        link.setAttribute('aria-disabled', 'true');
+        link.setAttribute('tabindex', '-1');
+      });
+      disableAllActieAndLockButtons(false);
+    }
+  }
+
+  function isLockedUnlocked(indexInLocked) {
+    return indexInLocked < currentCount;
+  }
+
+  function disableAllActieAndLockButtons(disable) {
+    document.querySelectorAll('a.actie-button').forEach(btn => {
+      if (disable) {
+        btn.classList.add('disabled');
+        btn.setAttribute('aria-disabled', 'true');
+        btn.style.pointerEvents = 'none';
+        btn.style.cursor = 'default';
+        btn.style.opacity = '0.5';
+      } else {
+        btn.classList.remove('disabled');
+        btn.removeAttribute('aria-disabled');
+        btn.style.pointerEvents = '';
+        btn.style.cursor = 'pointer';
+        btn.style.opacity = '1';
+      }
+    });
+    document.querySelectorAll('button.lock-btn').forEach(btn => {
+      if (disable) {
+        btn.classList.add('disabled');
+        btn.setAttribute('aria-disabled', 'true');
+        btn.style.pointerEvents = 'none';
+        btn.style.cursor = 'default';
+        btn.style.opacity = '0.5';
+      } else {
+        btn.classList.remove('disabled');
+        btn.removeAttribute('aria-disabled');
+        btn.style.pointerEvents = '';
+        btn.style.cursor = 'pointer';
+        btn.style.opacity = '1';
+      }
+    });
+  }
+
+  function renderActies() {
+    column1.innerHTML = '';
+    column2.innerHTML = '';
+    const actieList = getActieList();
+
+    acties.slice(0, 6).forEach(actie => {
+      const row = document.createElement('div');
+      row.className = 'actie-row';
+      const btn = document.createElement('a');
+      btn.className = 'actie-button';
+      btn.textContent = actie.label;
+      btn.href = '#';
+      btn.dataset.actie = actie.id;
+
+      if (actieList.includes(actie.id)) {
+        btn.classList.add('disabled');
+      }
+
+      row.appendChild(btn);
+      column1.appendChild(row);
+    });
+
+    acties.slice(6).forEach((actie, idx) => {
+      const row = document.createElement('div');
+      row.className = 'actie-row';
+
+      const btn = document.createElement('a');
+      btn.className = 'actie-button';
+      btn.textContent = actie.label;
+      btn.href = '#';
+      btn.dataset.actie = actie.id;
+
+      if (isLockedUnlocked(idx)) {
+        if (actieList.includes(actie.id)) {
+          btn.classList.add('disabled');
+        }
+      } else {
+        btn.classList.add('locked');
+        btn.classList.remove('disabled');
+      }
+
+      row.appendChild(btn);
+
+      if (!isLockedUnlocked(idx)) {
+        const lockBtn = document.createElement('button');
+        lockBtn.className = 'lock-btn';
+        lockBtn.title = 'Unlock with password';
+        lockBtn.setAttribute('aria-label', `Unlock ${actie.label} with password`);
+        lockBtn.innerHTML = '🔒';
+        row.appendChild(lockBtn);
+
+        lockBtn.addEventListener('click', () => {
+          const allBottomEnabled = Array.from(bottomLinkButtons).every(link => !link.classList.contains('disabled'));
+          if (allBottomEnabled) return;
+
+          const pwd = prompt(`Enter the password to unlock ${actie.label}:`);
+          if (passwords[actie.id] && passwords[actie.id].includes(pwd)) {
+            alert(`${actie.label} unlocked!`);
+            if (currentCount === idx) {
+              currentCount++;
+              localStorage.setItem(`currentCount_${eventKey}`, currentCount.toString());
+            }
+            renderActies();
+            updateCounters();
+          } else {
+            alert('Incorrect password. Please try again.');
+          }
+
+        });
+      }
+
+      column2.appendChild(row);
+    });
+  }
+
+  function attachActieClickListeners() {
+    document.querySelectorAll('a.actie-button:not(.locked):not(.disabled)').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const allBottomEnabled = Array.from(bottomLinkButtons).every(link => !link.classList.contains('disabled'));
+        if (allBottomEnabled) return;
+
+        const actie = btn.dataset.actie;
+        if (!actie) return;
+
+        let actieList = getActieList();
+        if (!actieList.includes(actie)) {
+          actieList.push(actie);
+          saveActieList(actieList);
+          renderActies();
+          updateCounters();
+        }
+      }, { once: true });
+    });
+  }
+
+  renderActies();
+  attachActieClickListeners();
+  updateCounters();
+
+  // Re-attach listeners after rerender
+  const originalRender = renderActies;
+  renderActies = function() {
+    originalRender();
+    attachActieClickListeners();
+  };
+</script>
+
+</body>
+</html>

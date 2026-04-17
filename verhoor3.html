@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Verhoor - Gent 1345</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a1a, #2c1810);
+      font-family: 'Cormorant Garamond', serif;
+      color: #eee;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    #main-body {
+      width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      color: gold;
+      font-weight: 600;
+      font-size: 1.5rem;
+      border-bottom: 3px solid gold;
+      user-select: text;
+    }
+    #nav-links a {
+      color: gold;
+      margin-top: 2px;
+      padding: 0.25rem 0.7rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 0.5rem;
+      transition: background-color 0.25s ease;
+      white-space: nowrap;
+    }
+    #nav-links a:hover, #nav-links a:focus {
+      background-color: gold;
+      color: #1a1a1a;
+      outline: none;
+    }
+    #counter-container {
+      color: gold;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin: 0.25rem 1rem 0 1rem;
+      user-select: text;
+      text-align: left;
+    }
+    #interrogation {
+      display: flex;
+      gap: 1rem;
+      background: #222;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px 2px #cca300 inset;
+      user-select: text;
+    }
+    #answers {
+      display: flex;
+      gap: 1rem;
+      color: black;
+    }
+    #portrait-container {
+      background: #3d2b1f;
+      border: 3px solid gold;
+      border-radius: 12px;
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem 0.25rem 0.75rem 0.25rem;
+      box-sizing: border-box;
+      user-select: text;
+    }
+    #portrait-container img {
+      width: 100%;
+      border-radius: 12px 12px 0 0;
+      border-bottom: 3px solid gold;
+      user-select: none;
+      pointer-events: none;
+      display: block;
+    }
+    #character-name {
+      width: 100%;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: gold;
+      background: black;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      user-select: text;
+      padding: 0.4rem 0;
+      margin-top: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+    #answer-window {
+      flex-grow: 1;
+      width: 100%;
+      background: #f5f5dc;
+      border-radius: 10px;
+      padding: 1rem;
+      border-left: 5px solid #9b0000;
+      overflow-y: auto;
+      max-height: 180px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      color: black;
+      line-height: 1.4;
+      user-select: text;
+      box-shadow: inset 0 0 10px #cca300;
+    }
+    #dialogue-window {
+      flex-grow: 1;
+      width: 635px;
+      background: black;
+      border: 3px solid gold;
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-y: auto;
+      color: white;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      user-select: text;
+      box-sizing: border-box;
+      box-shadow: inset 0 0 20px #cca300;
+      height: 500px;
+    }
+    #questions {
+      margin-top: 1rem;
+      width: 100%;
+    }
+    #questions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, auto);
+      gap: 1rem;
+      background: #150f07;
+      border: 3px solid gold;
+      border-radius: 12px;
+      padding: 1rem;
+      user-select: none;
+      max-height: 180px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+    .question-btn {
+      background: #3d2b1f;
+      border: 2px solid gold;
+      border-radius: 8px;
+      color: gold;
+      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      padding: 0.5rem 0.7rem;
+      cursor: pointer;
+      box-shadow: inset 0 0 6px #cca300;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .question-btn:hover, .question-btn:focus {
+      background: gold;
+      color: #1a1a1a;
+      outline: none;
+      box-shadow: 0 0 12px 3px gold;
+    }
+    #continue-button {
+      margin-top: 0.3rem;
+      font-size: 1.1rem;
+      padding: 0.6rem 1.5rem;
+      border-radius: 10px;
+      border: 3px solid gold;
+      background: black;
+      color: gold;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: block;
+      margin: 1rem auto 0;
+    }
+    #continue-button:hover, #continue-button:focus {
+      background-color: gold;
+      color: black;
+      outline: none;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="main-body" role="main">
+    <header id="header" role="banner" aria-label="Page title and navigation">
+      <div id="page-title" style="user-select:text;">Verhoor</div>
+      <div id="counter-container" aria-live="polite" aria-atomic="true" role="status">Vragen gesteld: 0/4 </div>
+      <nav id="nav-links" aria-label="Primary navigation">
+        <a href="event4.html" tabindex="0">Event 4</a>
+      </nav>
+    </header>
+
+    <section id="interrogation" aria-label="Interrogation main area">
+      <div id="answers" aria-live="polite" aria-atomic="true">
+        <aside id="portrait-container" aria-label="Portrait, name and answers">
+          <img id="character-portrait" src="" alt="Portrait" />
+          <div id="character-name" aria-live="polite"></div>
+          <section id="answer-window" tabindex="0" aria-label="Previous answers log"></section>
+        </aside>
+
+        <section id="dialogue-window" tabindex="0" aria-label="Current dialogue answer"></section>
+      </div>
+    </section>
+
+    <nav id="questions" aria-label="Question options">
+      <div id="questions-grid" role="list"></div>
+      <button id="continue-button" class="hidden" aria-label="Continue to Event 3">Doorgaan</button>
+    </nav>
+  </div>
+
+<script>
+  // Suspects data mapped by actie id
+  const suspects = {
+    actie1: {
+      name: "Geeraert Denys",
+      portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas11.png",
+      dialogueData: {
+        diai1: {
+          text: `Mijnheer de baljuw. Ik neem aan dat dit snel kan verlopen. Mijn tijd is waardevol.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai2: {
+          text:
+            `Ik was hier op verzoek van Willem voor zaken...niets ongewoons.`,
+          options: [
+            { text: "Welke zaken precies", next: "diai3" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai3: {
+          text:
+            `De belangen van de gilden. Ik hoef u niet uit te leggen hoe cruciaal die zijn voor Gent.`,
+          options: [
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai4: {
+          text:
+            `In de salon, aan het wachten totdat Willem klaar was om me te ontvangen.`,
+          options: [
+            { text: "Kan iemand uw alibi bevestigen?", next: "diai5" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai5: {
+          text:
+            `Lievens Quadquaet. Kerel bleef maar aandringen dat ik hem geld moest lenen voor zijn nieuwste onderneming.`,
+          options: [
+            { text: "Heeft u het hem geleend?", next: "diai6" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai6: {
+          text:
+            `Absoluut niet. En ik vermoed dat ik niet de enige was die hem geweigerd heeft.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai7: {
+          text:
+            `Cordiaal. We werkten samen waar nodig en verschilden van mening waar het moest.`,
+          options: [
+            { text: "Nochthans zijn de geruchten dat van Artevelde via Willem druk uitoefende op handelaars. Afpersing, onder het mom van orde...", next: "diai8" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+        diai8: {
+          text:
+            `Geruchten? Neen, mijnheer de baljuw: dat zijn feiten. Dat is hoe het hier en elders verloopt. Tenminste waren de Merseman en mezelf het eens over de noodzaak van bepaalde buitenlandse banden.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "U had motief. U had toegang. Waarom zou ik u niet als hoofdverdachte beschouwen?", next: "diai9" }
+          ]
+        },
+         diai9: {
+          text:
+            `Omdat hetzelfde geldt voor de anderen.`,
+          options: [
+            { text: "Wie van hen is de dader?", next: "diai10" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai10: {
+          text:
+            `Dat weet ik niet. Persoonlijk zou ik het onderzoek heroriënteren op de ondeugdelijke praktijken van broeder Johannes. `,
+          options: [
+            { text: "Welke praktijken?", next: "diai11" },
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+        diai11: {
+          text:
+            `Zijn nachtelijke bezoeken aan het pand van Dame Rosenbroek.`,
+          options: [
+            { text: "Waarom was u in het huis van Willem De Merseman?", next: "diai2" },
+            { text: "Waar bevond u zich op het moment van de val?", next: "diai4" },
+            { text: "Hoe was uw relatie met Willem De Merseman?", next: "diai7" }
+          ]
+        },
+      }
+    },
+
+    actie2: {
+      name: "Beatrijs Penninck",
+      portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas15.png",
+      dialogueData: {
+        diai1: {
+          text: `Beatrijs kijkt je met een glimlach aan, maar angst ligt verborgen in haar ogen.`,
+          options: [
+            { text: "Bent u schuldig?", next: "diai2" },
+            { text: "Waar was u op dat moment?", next: "diai3" }
+          ]
+        },
+        diai2: {
+          text: `Ik was aan het werk in het atelier, niemand kan dat ontkennen.`,
+          options: [
+            { text: "Heeft u vijanden?", next: "diai4" }
+          ]
+        },
+        diai3: {
+          text: `Sommigen zeggen dat ik geheimen heb, maar ik ben onschuldig.`,
+          options: [
+            { text: "Vertel meer", next: "diai5" }
+          ]
+        },
+        diai4: {
+          text: `Vijanden? Iedereen heeft vijanden, maar ik koester geen haat.`,
+          options: [
+            { text: "Bent u zeker?", next: "diai6" }
+          ]
+        },
+        diai5: {
+          text: `Soms lijken de dingen niet wat ze zijn.`,
+          options: []
+        },
+        diai6: {
+          text: `Ik vraag u zich te bedenken dat waarheid subjectief kan zijn.`,
+          options: []
+        }
+      }
+    },
+
+    actie3: {
+      name: "Lodewijk Manskint",
+      portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas6.png",
+      dialogueData: {
+        diai1: {
+          text: `Wat wilt ge weten? Ik ben niet van plan me te laten doen.`,
+          options: [
+            { text: "Waarom zo boos?", next: "diai2" },
+            { text: "Heeft u het gedaan?", next: "diai3" }
+          ]
+        },
+        diai2: {
+          text: `Iedereen heeft een reden... zelfs ik.`,
+          options: []
+        },
+        diai3: {
+          text: `Dat weet ik niet, maar ik zal alles vertellen.`,
+          options: []
+        }
+      }
+    },
+
+    actie4: {
+      name: "Lieven Quadquaet",
+      portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas5.png",
+      dialogueData: {
+        diai1: {
+          text: `Ik was bezig mensen te helpen, niet te doden.`,
+          options: [
+            { text: "Waarom liegt u dan?", next: "diai2" },
+            { text: "Kunt u bewijzen waar u was?", next: "diai3" }
+          ]
+        },
+        diai2: {
+          text: `Omdat sommige dingen niet makkelijk zijn om uit te leggen.`,
+          options: []
+        },
+        diai3: {
+          text: `Ja, dat kan ik.`,
+          options: []
+        }
+      }
+    },
+
+    actie5: {
+      name: "Broeder Johannes",
+      portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/ja.png",
+      dialogueData: {
+        diai1: {
+          text: `Ik zeg niets. Mijn mond is gesloten.`,
+          options: [
+            { text: "Waarom zwijgt u?", next: "diai2" }
+          ]
+        },
+        diai2: {
+          text: `Soms is zwijgen sterker dan woorden.`,
+          options: []
+        }
+      }
+    },
+
+    actie6: {
+      name: "Elisabeth de Merseman",
+      portrait: "https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas14.png",
+      dialogueData: {
+        diai1: {
+          text: `Ik was thuis, verdrietig en alleen.`,
+          options: [
+            { text: "Voelde u zich schuldig?", next: "diai2" },
+            { text: "Had u ruzie met Willem?", next: "diai3" }
+          ]
+        },
+        diai2: {
+          text: `Het is moeilijk, maar ik heb niets gedaan.`,
+          options: []
+        },
+        diai3: {
+          text: `Onze relatie was moeizaam, ja.`,
+          options: []
+        }
+      }
+    }
+  };
+
+  // Utility: parse query param
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // Elements references
+  const pageTitle = document.getElementById('page-title');
+  const characterNameElem = document.getElementById('character-name');
+  const characterPortrait = document.getElementById('character-portrait');
+  const answerWindow = document.getElementById('answer-window');
+  const dialogueWindow = document.getElementById('dialogue-window');
+  const questionsGrid = document.getElementById('questions-grid');
+  const counterContainer = document.getElementById('counter-container');
+  const continueBtn = document.getElementById('continue-button');
+
+  // State tracking for questions asked (up to 4 as per your game)
+  const diai7Nodes = new Set([
+    'diai8', 'diai9', 'diai10', 'diai11', 'diai12', 'diai13'
+  ]);
+  let questionsAskedFromDiai7 = new Set();
+
+  let currentNodeKey = null;
+  let suspectData = null;
+
+  function updateCounter() {
+    const count = questionsAskedFromDiai7.size;
+    counterContainer.textContent = `Vragen gesteld: ${count}/4`;
+  }
+
+  function renderQuestions(options) {
+    if (questionsAskedFromDiai7.size >= 4) {
+      questionsGrid.style.display = 'none';
+      continueBtn.classList.remove('hidden');
+      return;
+    }
+
+    questionsGrid.innerHTML = '';
+    options.forEach(opt => {
+      if (opt.next !== null) {
+        const btn = document.createElement('button');
+        btn.className = 'question-btn';
+        btn.textContent = opt.text;
+        btn.setAttribute('data-next', opt.next);
+        btn.setAttribute('tabindex', '0');
+        btn.setAttribute('role', 'listitem');
+        btn.addEventListener('click', () => {
+          renderDialogue(opt.next, opt.text);
+        });
+        questionsGrid.appendChild(btn);
+      }
+    });
+
+    if (questionsGrid.children.length === 0) {
+      continueBtn.classList.remove('hidden');
+      questionsGrid.style.display = 'none';
+    } else {
+      continueBtn.classList.add('hidden');
+      questionsGrid.style.display = 'grid';
+    }
+  }
+
+  function appendQAPair(question, answer) {
+    const qElem = document.createElement('p');
+    qElem.style.fontWeight = '700';
+    qElem.style.margin = '0.3rem 0 0.6rem 0';
+    qElem.style.color = '#90ee90';
+    qElem.textContent = `You: ${question}`;
+
+    const aElem = document.createElement('p');
+    aElem.style.margin = '0 0 1rem 0';
+    aElem.textContent = answer;
+
+    dialogueWindow.appendChild(qElem);
+    dialogueWindow.appendChild(aElem);
+
+    dialogueWindow.scrollTop = dialogueWindow.scrollHeight;
+  }
+
+  function renderDialogue(nodeKey, lastQuestion = null) {
+    const node = suspectData.dialogueData[nodeKey];
+    if (!node) return;
+
+    currentNodeKey = nodeKey;
+
+    answerWindow.textContent = node.text;
+    answerWindow.scrollTop = 0;
+
+    if (lastQuestion) {
+      appendQAPair(lastQuestion, node.text);
+    } else {
+      dialogueWindow.innerHTML = '';
+      const firstAnswer = document.createElement('p');
+      firstAnswer.textContent = node.text;
+      dialogueWindow.appendChild(firstAnswer);
+    }
+
+    if (diai7Nodes.has(nodeKey) && lastQuestion !== null) {
+      questionsAskedFromDiai7.add(lastQuestion);
+      updateCounter();
+    }
+
+    renderQuestions(node.options || []);
+  }
+
+  continueBtn.addEventListener('click', () => {
+    // Redirect to Event 3 or another page after interrogation complete
+    window.location.href = 'event5.html';
+  });
+
+  function initialize() {
+    const actieParam = getQueryParam('actie');
+    suspectData = suspects[actieParam];
+
+    if (!suspectData) {
+      // unknown suspect fallback
+      pageTitle.textContent = 'Onbekende Verhoorde';
+      characterNameElem.textContent = 'Onbekende';
+      characterPortrait.src = '';
+      characterPortrait.alt = 'Geen portret beschikbaar';
+      answerWindow.textContent = 'Er is geen informatie beschikbaar over deze verdachte.';
+      dialogueWindow.textContent = '';
+      questionsGrid.innerHTML = '';
+      continueBtn.classList.remove('hidden');
+      return;
+    }
+
+    pageTitle.textContent = `Verhoor: ${suspectData.name}`;
+    characterNameElem.textContent = suspectData.name;
+    characterPortrait.src = suspectData.portrait;
+    characterPortrait.alt = `Portret van ${suspectData.name}`;
+
+    // Start the dialogue at the root node diai1
+    renderDialogue('diai1');
+  }
+
+  initialize();
+</script>
+</body>
+</html>

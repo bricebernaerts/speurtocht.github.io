@@ -118,7 +118,7 @@
 
     /* Clue text paragraphs */
     .event-log p {
-      margin: 0.3rem 0;
+      margin: 0.5rem 0;
       line-height: 1.4;
     }
 
@@ -216,28 +216,100 @@
 
   <script>
     // Map actie IDs to clue text shown
-    const actieTexts = {
-      'actie1': 'Actie 1 produces this clue',
-      'actie2': 'Details or text for Actie 2.',
-      'actie3': 'Details or text for Actie 3.',
-      'actie4': 'Details or text for Actie 4.',
-      'actie5': 'Details or text for Actie 5.',
-      'actie6': 'Details or text for Actie 6.',
-      'actie7': 'Details or text for Actie 7.',
-      'actie8': 'Details or text for Actie 8.',
-      'actie9': 'Details or text for Actie 9.',
-      'actie10': 'Details or text for Actie 10.',
-      'actie11': 'Details or text for Actie 11.',
-      'actie12': 'Details or text for Actie 12.'
-    };
+  const actieTextsByEvent = {
+  event1: {
+    'actie1': 'Willem Merseman heeft een dolkletsel.',
+    'actie2': 'Willem en Elisabeth de Merseman hebben vaak ruzie.',
+    'actie3': 'Willem en Geeraert Denys komen niet overeen.',
+    'actie4': 'Broeder Johannes komt vaak Willem bezoeken.',
+    'actie5': 'Lodewijk Manskint is een misdadiger maar wordt zelden of niet bestraft.',
+    // ... add clues for event1 actie3 to actie12
+  },
+  event2: {
+    'actie1': 'Naaktschilderij van Willem de Merseman in het atelier.',
+    'actie2': 'Aanboden aan Willem de Merseman van de volder gildemeester.',
+    'actie3': 'Roddels van ontrouw van Elisabeth de Merseman.',
+    'actie4': 'Een kritische tekst van Broeder Johannes over de celibaatsplicht.',
+    'actie5': 'Ongeopende verzoeken tot schuldkwijtschelding van Lievens Quadquaet.',
+    'actie6': 'Sierraden van Lokewijk Manskint in de gastkamer.',
+    'actie7': 'Event1 - Actie 2 clue text',
+    'actie8': 'Event1 - Actie 2 clue text',
+    'actie9': 'Een getand steekmes.',
+    'actie10': 'Tuinscharen.',
+    'actie11': 'Een lange dolk.',
+    'actie12': 'Een scherpe keukenmes.',
+    // ... add clues for event2 actie3 to actie12
+  },
+  event3: {
+    'actie1': 'Event1 - Actie 1 clue text',
+    'actie2': 'Event1 - Actie 2 clue text',
+    'actie3': 'Event1 - Actie 2 clue text',
+    'actie4': 'Event1 - Actie 2 clue text',
+    'actie5': 'Event1 - Actie 2 clue text',
+    'actie6': 'Event1 - Actie 2 clue text',
+    'actie7': 'Event1 - Actie 2 clue text',
+    'actie8': 'Event1 - Actie 2 clue text',
+    'actie9': 'Event1 - Actie 2 clue text',
+    'actie10': 'Event1 - Actie 2 clue text',
+    'actie11': 'Event1 - Actie 2 clue text',
+    'actie12': 'Event1 - Actie 2 clue text',
+    // continue for each event & actie
+  },
+  event4: {
+    'actie1': 'Oproep leden wevergilde om zich te bewapenen.',
+    'actie2': 'Geruchten dat Beatrijs zich ineens vaak kom biechten.',
+    'actie3': 'Dronken beweringen van Lievens Quadquaet dat zijn geldproblemen opgelost zijn.',
+    'actie4': 'Vergaderingnotities van Deslager met Edward III in London.',
+    'actie5': 'Bevestiging van seksuele diensten aan Broeder Johannes.',
+    'actie6': 'Klacht van Elisabeth de Merseman tegen Lodewijk Manskint.',
+    'actie7': 'Aanzienlijke bestellingen van Engelse handelaren bij de voldergilde.',
+    'actie8': 'Veroordeling tot de dood van Engel Penninck.',
+    'actie9': 'Munten vanuit Parijs bij Lievens Quadquaet.',
+    'actie10': 'Gratieverlening voor misdrijven van Lodewijk Manskint.',
+    'actie11': 'Vulgaire anti-kerk satire geschreven door Broeder Johannes, waarin beatrijs actrice is.',
+    'actie12': 'Overplaatsing van Petrus Boomans naar Willem de Merseman.',
+    // continue for each event & actie
+  },
+  event5: {
+    'actie1': 'Event1 - Actie 1 clue text',
+    'actie2': 'Event1 - Actie 2 clue text',
+    'actie3': 'Event1 - Actie 2 clue text',
+    'actie4': 'Event1 - Actie 2 clue text',
+    'actie5': 'Event1 - Actie 2 clue text',
+    'actie6': 'Event1 - Actie 2 clue text',
+    'actie7': 'Event1 - Actie 2 clue text',
+    'actie8': 'Event1 - Actie 2 clue text',
+    'actie9': 'Event1 - Actie 2 clue text',
+    'actie10': 'Event1 - Actie 2 clue text',
+    'actie11': 'Event1 - Actie 2 clue text',
+    'actie12': 'Event1 - Actie 2 clue text',
+    // continue for each event & actie
+  },
+  event6: {
+    'actie1': 'Dringende oproep bijeenkomst wever en molenaar gildes.',
+    'actie2': 'Weelderige verbouwingen bij Jacob van Artevelde.',
+    'actie3': 'Schrijven van Broeder Johannes aan lollards over "teologische" bondgenoten.',
+    'actie4': 'Afpersing Brouwerij door Handlanger Lodewijk Manskint',
+    'actie5': 'Verzameling messen bij Jean Duval.',
+    'actie6': 'Doos brieven van Elisabeth de Merseman aan Earl Pembroke.',
+    'actie7': 'Operateksten gestuurd van de Graaf van Nevers aan Lievens Quadquaet',
+    'actie8': 'Spullen van Lodewijk Manskint bij officieel Mirabello.',
+    'actie9': 'Leningen van de Stad Gent aan Edward III.',
+    'actie10': 'Brieven omtrent de aankomende excommunicatie van Artevelde.',
+    'actie11': 'Faillietverklaring Lakenonderneming Artevelde.',
+    'actie12': 'Verslagen Beatrijs Penninck aan Ambassadeur Dietrich Schwarz.',
+    // continue for each event & actie
+  },
+  // Add all events needed
+  };
 
     const events = [
-      { key: 'event1', title: 'Event 1' },
-      { key: 'event2', title: 'Event 2' },
-      { key: 'event3', title: 'Event 3' },
-      { key: 'event4', title: 'Event 4' },
-      { key: 'event5', title: 'Event 5' },
-      { key: 'event6', title: 'Event 6' }
+      { key: 'event1', title: 'Inleiding' },
+      { key: 'event2', title: 'Event 1' },
+      { key: 'event3', title: 'Event 2' },
+      { key: 'event4', title: 'Event 3' },
+      { key: 'event5', title: 'Event 4' },
+      { key: 'event6', title: 'Event 5' }
     ];
 
     const grid = document.getElementById('journal-grid');
@@ -264,12 +336,12 @@
 
       if (actieList.length === 0) {
         const p = document.createElement('p');
-        p.textContent = '(No clues found yet)';
+        p.textContent = '(Nog geen aanwijzingen)';
         box.appendChild(p);
       } else {
         actieList.forEach(actie => {
           const p = document.createElement('p');
-          p.textContent = actieTexts[actie] || '(Unknown clue)';
+          p.textContent = (actieTextsByEvent[event.key] && actieTextsByEvent[event.key][actie]) || '(Unknown clue)';
           box.appendChild(p);
         });
       }
@@ -296,7 +368,7 @@
         box.appendChild(heading);
 
         const p = document.createElement('p');
-        p.textContent = '(No clues found yet)';
+        p.textContent = '(Nog geen aanwijzingen)';
         box.appendChild(p);
 
         grid.appendChild(box);

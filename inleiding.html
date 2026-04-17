@@ -194,9 +194,8 @@
       padding: 0.5rem 0.7rem;
       cursor: pointer;
       box-shadow: inset 0 0 6px #cca300;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      word-break: break-word;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
     .question-btn:hover, .question-btn:focus {
@@ -506,6 +505,32 @@
         answerWindow.focus();
       }, 100);
     }
+    
+function addInleidingCluesToJournal() {
+  const eventKey = 'event1';
+  const cluesToAdd = ['actie1', 'actie2', 'actie3', 'actie4', 'actie5'];
+
+  try {
+    let actieList = JSON.parse(localStorage.getItem(`actieList_${eventKey}`)) || [];
+    let added = false;
+    cluesToAdd.forEach(clueId => {
+      if (!actieList.includes(clueId)) {
+        actieList.push(clueId);
+        added = true;
+      }
+    });
+    if (added) {
+      localStorage.setItem(`actieList_${eventKey}`, JSON.stringify(actieList));
+    }
+  } catch {
+    // ignore errors
+  }
+}
+
+// Call this on page load
+addInleidingCluesToJournal();
+
+
 
     // Initialize with start node
     renderDialogue('diai1');

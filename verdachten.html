@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
-  <title>Suspects Overview</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <title>Verdachten</title>
   <style>
     body {
       background: linear-gradient(135deg, #1a1a1a, #2c1810);
@@ -15,7 +15,9 @@
 
     h1.page-title {
       margin-bottom: 30px;
-      font-size: 48px;
+      font-size: 60px;
+      color: gold;
+      text-decoration: underline; 
       text-shadow:
         -2px -2px 0 black,
         2px -2px 0 black,
@@ -41,7 +43,8 @@
       user-select: none;
     }
 
-    .suspect:hover {
+    .suspect:hover, .suspect:focus {
+      outline: none;
       transform: scale(1.05);
       border-color: lightgoldenrodyellow;
     }
@@ -110,18 +113,22 @@
       line-height: 1;
       border-radius: 6px;
       transition: background-color 0.3s ease;
+      background: transparent;
+      border: none;
     }
     #close-popup:hover, #close-popup:focus {
       background-color: gold;
       color: black;
       outline: none;
     }
-
+    
     .bannerlink {
       display: flex;
       justify-content: center;
       gap: 10px;
       margin-bottom: 30px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.2);
     }
 
     .bannerlink a {
@@ -150,92 +157,150 @@
 
   <div class="suspects-grid">
     <div class="suspect" data-suspect="suspect1" tabindex="0" role="button" aria-pressed="false">
-      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas11.png" alt="Suspect 1 Mugshot" class="mugshot" />
+      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas11.png" alt="Geeraert Denys" class="mugshot" />
       <strong>Geeraert Denys</strong>
     </div>
     <div class="suspect" data-suspect="suspect2" tabindex="0" role="button" aria-pressed="false">
-      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas15.png" alt="Suspect 2 Mugshot" class="mugshot" />
+      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas15.png" alt="Beatrijs Penninck" class="mugshot" />
       <strong>Beatrijs Penninck</strong>
     </div>
     <div class="suspect" data-suspect="suspect3" tabindex="0" role="button" aria-pressed="false">
-      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas6.png" alt="Suspect 3 Mugshot" class="mugshot" />
+      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas6.png" alt="Lodewijk Manskint" class="mugshot" />
       <strong>Lodewijk Manskint</strong>
     </div>
     <div class="suspect" data-suspect="suspect4" tabindex="0" role="button" aria-pressed="false">
-      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas5.png" alt="Suspect 4 Mugshot" class="mugshot" />
+      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas5.png" alt="Lieven Quadquaet" class="mugshot" />
       <strong>Lieven Quadquaet</strong>
     </div>
     <div class="suspect" data-suspect="suspect5" tabindex="0" role="button" aria-pressed="false">
-      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/ja.png" alt="Suspect 5 Mugshot" class="mugshot" />
+      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/ja.png" alt="Broeder Johannes" class="mugshot" />
       <strong>Broeder Johannes</strong>
     </div>
     <div class="suspect" data-suspect="suspect6" tabindex="0" role="button" aria-pressed="false">
-      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas14.png" alt="Suspect 6 Mugshot" class="mugshot" />
+      <img src="https://uploads.onecompiler.io/44fwt7xkt/44kh5bfjr/canvas14.png" alt="Elisabeth de Merseman" class="mugshot" />
       <strong>Elisabeth de Merseman</strong>
     </div>
   </div>
 
   <!-- Popup box -->
-  <div id="info-popup" role="dialog" aria-modal="true" aria-labelledby="info-title">
+  <div id="info-popup" role="dialog" aria-modal="true" aria-labelledby="info-title" tabindex="-1">
     <button id="close-popup" aria-label="Sluit informatie venster">&times;</button>
     <h2 id="info-title"></h2>
     <div id="info-content"></div>
   </div>
 
   <script>
-    // Clues & descriptions for each suspect
+    const suspectNames = {
+      suspect1: "Geeraert Denys",
+      suspect2: "Beatrijs Penninck",
+      suspect3: "Lodewijk Manskint",
+      suspect4: "Lieven Quadquaet",
+      suspect5: "Broeder Johannes",
+      suspect6: "Elisabeth de Merseman"
+    };
+
     const suspectInfos = {
       suspect1: {
-        basic: "Suspect 1 is a known gambler with debts.",
-        clues: [
-          { action: "actie1", text: "You discovered Suspect 1 was seen near the crime scene." },
-          { action: "actie4", text: "Suspect 1 has a suspicious alibi contradicting witnesses." }
-        ]
+        basic: "Geeraert Denys, als gildemeester van de wevers, behoort tot de meest kapitaalkrachtige en invloedrijke figuren in Gent. Jaren geleden werd hij door het gerecht verbannen, maar onder druk van bondgenoten en machtige facties liet Van Artevelde hem met tegenzin terugkeren."
       },
       suspect2: {
-        basic: "Suspect 2 is a former soldier with a short fuse.",
-        clues: [
-          { action: "actie2", text: "Suspect 2 was arguing loudly minutes before the incident." },
-          { action: "actie7", text: "You found a weapon linked to Suspect 2." }
-        ]
+        basic: "Beatrijs Penninck is een Gentse kunstenares beroemd voor haar heterdoxe stijl. Haar meteorische opgang tot spilfiguur binnen de Gentse elite is ronduit opmerkelijk. Recent deed Willem van Merseman beroep op haar diensten. Specifiek waarvoor is onbekend."
       },
       suspect3: {
-        basic: "Suspect 3 is a local merchant with many secrets.",
-        clues: [
-          { action: "actie3", text: "Suspect 3 lied about their whereabouts." },
-          { action: "actie6", text: "Suspect 3 had unexplained large cash deposits recently." }
-        ]
+        basic: "Lodewijk Manskint is een lokale boef, bijzonder verwant met de stadswacht. Opvallend onderhoudt hij tevens veel contacten met de lokale burgers."
       },
       suspect4: {
-        basic: "Suspect 4 is quiet and keeps to themselves.",
-        clues: [
-          { action: "actie4", text: "Suspect 4 was seen leaving the victim's house." },
-          { action: "actie9", text: "Suspect 4 has a hidden criminal record." }
-        ]
+        basic: "Lievens Quadquaet is een geapprecieerd lid van de gemeenschap. Men kent hem om zijn gokzucht en om de scheiding van zijn vorige echtgenote, die hem geen erfgenaam wist te schenken."
       },
       suspect5: {
-        basic: "Suspect 5 is a local politician with many enemies.",
-        clues: [
-          { action: "actie5", text: "Suspect 5 was involved in a recent heated debate." },
-          { action: "actie10", text: "Suspect 5’s office was ransacked." }
-        ]
+        basic: "Broeder Johannes is ex-professor theologie van Oxford. Niemand weet waarom hij van Engeland is teruggekomen naar Gent. Bekend om zijn stoïcijnse houding, behoudens wanneer ethische vraagstukken ter sprake komen in het Collegium Disputandi."
       },
       suspect6: {
-        basic: "Suspect 6 is a mysterious traveler with no clear past.",
-        clues: [
-          { action: "actie6", text: "Suspect 6 was spotted with strange equipment." },
-          { action: "actie12", text: "Suspect 6 has no alibi for the night of murder." }
-        ]
+        basic: "Als vooraanstaande dame binnen de hogere klasse, geroemd om haar welsprekendheid, trekken haar herhaalde afwezigheden door buitenlandse reizen des te meer de aandacht."
       }
     };
 
-    function getStoredActions() {
-      try {
-        return JSON.parse(localStorage.getItem("actieList")) || [];
-      } catch {
-        return [];
+    // Add your full merged clues (event_actie keys)
+    const cluesByActieAllEvents = {
+      'event1_actie1': 'Willem Merseman heeft een dolkletsel.',
+      'event1_actie2': 'Willem en Elisabeth de Merseman hebben vaak ruzie.',
+      'event1_actie3': 'Willem en Geeraert Denys komen niet overeen.',
+      'event1_actie4': 'Broeder Johannes komt vaak Willem bezoeken.',
+      'event1_actie5': 'Lodewijk Manskint is een misdadiger maar wordt zelden of niet bestraft.',
+      'event2_actie1': 'Naaktschilderij van Willem de Merseman in het atelier.',
+      'event2_actie2': 'Aanboden aan Willem de Merseman van de volder gildemeester.',
+      'event2_actie3': 'Roddels van ontrouw van Elisabeth de Merseman.',
+      'event2_actie4': 'Een kritische tekst van Broeder Johannes over de celibaatsplicht.',
+      'event2_actie5': 'Ongeopende verzoeken tot schuldkwijtschelding van Lievens Quadquaet.',
+      'event2_actie6': 'Sierraden van Lokewijk Manskint in de gastkamer.'
+      // Add all your actual clues here as required
+    };
+
+    const eventKeys = ['event1', 'event2', 'event3', 'event4', 'event5', 'event6'];
+
+    // clues grouped dynamically by suspect
+    const cluesBySuspect = {
+      suspect1: [],
+      suspect2: [],
+      suspect3: [],
+      suspect4: [],
+      suspect5: [],
+      suspect6: []
+    };
+
+    function getAllUnlockedClueTexts() {
+      let clues = [];
+      eventKeys.forEach(eventKey => {
+        try {
+          const unlockedActies = JSON.parse(localStorage.getItem(`actieList_${eventKey}`)) || [];
+          unlockedActies.forEach(actieId => {
+            const key = `${eventKey}_${actieId}`;
+            const clueText = cluesByActieAllEvents[key];
+            if (clueText) clues.push(clueText);
+          });
+        } catch {}
+      });
+      return clues;
+    }
+    
+    function prefillLocalStorage() {
+      if (!localStorage.getItem('actieList_event1')) {
+        localStorage.setItem('actieList_event1', JSON.stringify(['actie1', 'actie2']));
+      }
+      if (!localStorage.getItem('actieList_event2')) {
+        localStorage.setItem('actieList_event2', JSON.stringify(['actie1', 'actie3']));
+      }
+      if (!localStorage.getItem('actieList_event3')) {
+        localStorage.setItem('actieList_event3', JSON.stringify(['actie1']));
       }
     }
+    prefillLocalStorage();
+
+
+    function assignCluesToSuspects() {
+      const lowerSuspectNames = {};
+      Object.entries(suspectNames).forEach(([id, name]) => {
+        lowerSuspectNames[id] = name.toLowerCase();
+      });
+
+      const allClues = getAllUnlockedClueTexts();
+
+      Object.keys(cluesBySuspect).forEach(id => cluesBySuspect[id] = []);
+
+      allClues.forEach(text => {
+        const textLower = text.toLowerCase();
+        Object.entries(lowerSuspectNames).forEach(([suspectId, nameLower]) => {
+          if (textLower.includes(nameLower)) {
+            if (!cluesBySuspect[suspectId].includes(text)) {
+              cluesBySuspect[suspectId].push(text);
+            }
+          }
+        });
+      });
+    }
+
+    // Run once on page load
+    assignCluesToSuspects();
 
     const popup = document.getElementById("info-popup");
     const title = document.getElementById("info-title");
@@ -243,7 +308,6 @@
     const closeBtn = document.getElementById("close-popup");
 
     function displaySuspectInfo(suspectId) {
-      const storedActions = getStoredActions();
       const suspect = suspectInfos[suspectId];
       if (!suspect) {
         title.textContent = "Onbekende Verdachte";
@@ -254,51 +318,42 @@
 
       title.textContent = suspect.basic;
 
-      // Include clues for actions player unlocked/did
-      const cluesFound = suspect.clues.filter(c => storedActions.includes(c.action));
-      if (cluesFound.length) {
-        let listHTML = "<ul>";
-        cluesFound.forEach(c => { listHTML += `<li>${c.text}</li>` });
-        listHTML += "</ul>";
-        content.innerHTML = listHTML;
+      const clues = cluesBySuspect[suspectId];
+      if (clues && clues.length) {
+        content.innerHTML = "<ul>" + clues.map(c => `<li>${c}</li>`).join('') + "</ul>";
       } else {
-        content.innerHTML = "<em>No clues found yet related to this suspect.</em>";
+        content.innerHTML = "<em>Nog geen aanwijzingen gevonden voor deze verdachte.</em>";
       }
       openPopup();
     }
 
     function openPopup() {
       popup.style.display = "block";
-      // Focus on close button for accessibility
+      popup.focus();
       closeBtn.focus();
-      // Prevent background scroll while popup is open
       document.body.style.overflow = "hidden";
     }
 
     function closePopup() {
       popup.style.display = "none";
-      // Restore scrolling
       document.body.style.overflow = "";
     }
 
+    // Suspect event listeners
     document.querySelectorAll(".suspect").forEach(el => {
       el.addEventListener("click", () => {
-        displaySuspectInfo(el.getAttribute("data-suspect"));
+        displaySuspectInfo(el.dataset.suspect);
       });
-
-      // Accessibility: allow Enter or Space keypress to activate
       el.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          displaySuspectInfo(el.getAttribute("data-suspect"));
+          displaySuspectInfo(el.dataset.suspect);
         }
       });
     });
 
-    closeBtn.addEventListener("click", () => {
-      closePopup();
-    });
-
+    // Close handlers
+    closeBtn.addEventListener("click", closePopup);
     closeBtn.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
@@ -306,16 +361,13 @@
       }
     });
 
-    // Close popup when pressing Escape key
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && popup.style.display === "block") {
         closePopup();
       }
     });
 
-    // Optional: Close popup when clicking outside the popup content
     popup.addEventListener("click", (event) => {
-      // If click target is the popup background but not child elements
       if (event.target === popup) {
         closePopup();
       }

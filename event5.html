@@ -67,6 +67,7 @@
     }
     nav.bannerlink a {
       color: gold;
+      background: black;
       font-weight: bold;
       border: 2px solid gold;
       padding: 8px 16px;
@@ -121,6 +122,7 @@
       border: 2px solid gold;
       color: gold;
       text-decoration: none;
+      background: black;
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
@@ -137,6 +139,7 @@
       opacity: 0.5;
       cursor: default;
       border-color: gray;
+      background: black;
       color: gray;
       user-select: text;
     }
@@ -156,7 +159,7 @@
       width: 32px;
       height: 32px;
       flex-shrink: 0;
-      background: transparent;
+      background: black;
       border: none;
       cursor: pointer;
       color: gold;
@@ -215,7 +218,7 @@
       padding: 8px 14px;
       border-radius: 8px;
       color: gold;
-      background: transparent;
+      background: black;
       border: 2px solid gold;
       text-decoration: none;
       font-weight: 600;
@@ -227,7 +230,7 @@
       padding: 8px 14px;
       border-radius: 8px;
       color: gold;
-      background: transparent;
+      background: black;
       border: 2px solid gold;
       text-decoration: none;
       font-weight: 600;
@@ -238,6 +241,7 @@
       color: gold;
       border-color: gold;
     }
+
   </style>
 </head>
 <body>
@@ -270,36 +274,48 @@
     <a href="finale.html" class="bottom-links-disabled" tabindex="-1" aria-disabled="true">Finale</a>
   </footer>
 
-<script>
-  const eventKey = 'event5';
 
-  const maxCount = 6;
-  let currentCount = parseInt(localStorage.getItem(`currentCount_${eventKey}`), 10);
-  if (isNaN(currentCount)) currentCount = 0;
+<script>
+  const eventKey = 'event6'; // adjust if needed
 
   const acties = [
-    { id: 'actie1', label: 'Penningmeester Deduffer', locked: false },
+    { id: 'actie1', label: 'Gilde Molenaars', locked: false },
     { id: 'actie2', label: 'Villa Kalandeberg', locked: false },
-    { id: 'actie3', label: 'Laken Gilde', locked: false },
+    { id: 'actie3', label: 'Rabot Sluice', locked: false },
     { id: 'actie4', label: 'Brouwerij Stoepengat', locked: false },
-    { id: 'actie5', label: 'Huis de Mirabello', locked: false },
+    { id: 'actie5', label: 'Jean Duval', locked: false },
     { id: 'actie6', label: 'Pand Pembroke', locked: false },
     { id: 'actie7', label: 'Graaf van Nevers', locked: true },
-    { id: 'actie8', label: 'St-Jacob kerk', locked: true },
-    { id: 'actie9', label: 'Jean Duval', locked: true },
-    { id: 'actie10', label: 'Guilde Molenaars', locked: true },
-    { id: 'actie11', label: 'Rabot Sluice', locked: true },
-    { id: 'actie12', label: 'Dietrich +Schwarz', locked: true }
+    { id: 'actie8', label: 'Huis de Mirabello', locked: true },
+    { id: 'actie9', label: 'Penningmeester Deduffer', locked: true },
+    { id: 'actie10', label: 'St-Jacob kerk', locked: true },
+    { id: 'actie11', label: 'Laken Gilde', locked: true },
+    { id: 'actie12', label: 'Dietrich Schwarz', locked: true }
   ];
-
+  
   const passwords = {
-  'actie7': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-  'actie8': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-  'actie9': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-  'actie10': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-  'actie11': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-  'actie12': ['pass7', 'pass8','pass9','pass10','pass11','pass12']
-};
+    'actie7': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+    'actie8': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+    'actie9': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+    'actie10': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+    'actie11': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
+    'actie12': ['pass7', 'pass8','pass9','pass10','pass11','pass12']
+  };
+
+  const cluesByActie = {
+    'actie1': 'Dringende oproep bijeenkomst wever en molenaar gildes.',
+    'actie2': 'Weelderige verbouwingen bij Jacob van Artevelde.',
+    'actie3': 'Schrijven van Broeder Johannes aan lollards over "teologische" bondgenoten.',
+    'actie4': 'Afpersing Brouwerij door Handlanger Lodewijk Manskint',
+    'actie5': 'Verzameling messen bij Jean Duval.',
+    'actie6': 'Doos brieven van Elisabeth de Merseman aan Earl Pembroke.',
+    'actie7': 'Operateksten gestuurd van de Graaf van Nevers aan Lievens Quadquaet',
+    'actie8': 'Spullen van Lodewijk Manskint bij officieel Mirabello.',
+    'actie9': 'Leningen van de Stad Gent aan Edward III.',
+    'actie10': 'Brieven omtrent de aankomende excommunicatie van Artevelde.',
+    'actie11': 'Faillietverklaring Lakenonderneming Artevelde.',
+    'actie12': 'Verslagen Beatrijs Penninck aan Ambassadeur Dietrich Schwarz.',
+  };
 
   const column1 = document.querySelector('main.center-links .column:nth-child(1)');
   const column2 = document.querySelector('main.center-links .column:nth-child(2)');
@@ -308,7 +324,7 @@
   const bottomLinks = document.querySelector('footer');
   const bottomLinkButtons = bottomLinks.querySelectorAll('a');
 
-  // Retrieve actieList for this event
+  // Get saved acties from localStorage
   const getActieList = () => {
     try {
       return JSON.parse(localStorage.getItem(`actieList_${eventKey}`)) || [];
@@ -321,153 +337,181 @@
     localStorage.setItem(`actieList_${eventKey}`, JSON.stringify(list));
   };
 
-  function updateCounters() {
-    const actieList = getActieList();
-    const actiesDone = Math.min(actieList.length, 4);
-    actieCounter.textContent = `Acties voltooid: ${actiesDone}/4`;
-    qrCounter.textContent = `${currentCount}/${maxCount}`;
-
-    if (actiesDone >= 4) {
-      bottomLinks.classList.remove('bottom-links-disabled');
-      bottomLinks.classList.add('bottom-links-enabled');
-      bottomLinkButtons.forEach(link => {
-        link.classList.remove('disabled');
-        link.removeAttribute('aria-disabled');
-        link.removeAttribute('tabindex');
-      });
-      disableAllActieAndLockButtons(true);
-    } else {
-      bottomLinks.classList.remove('bottom-links-enabled');
-      bottomLinks.classList.add('bottom-links-disabled');
-      bottomLinkButtons.forEach(link => {
-        link.classList.add('disabled');
-        link.setAttribute('aria-disabled', 'true');
-        link.setAttribute('tabindex', '-1');
-      });
-      disableAllActieAndLockButtons(false);
-    }
-  }
-
-  function isLockedUnlocked(indexInLocked) {
-    return indexInLocked < currentCount;
-  }
-
-  function disableAllActieAndLockButtons(disable) {
-    document.querySelectorAll('a.actie-button').forEach(btn => {
-      if (disable) {
-        btn.classList.add('disabled');
-        btn.setAttribute('aria-disabled', 'true');
-        btn.style.pointerEvents = 'none';
-        btn.style.cursor = 'default';
-        btn.style.opacity = '0.5';
-      } else {
-        btn.classList.remove('disabled');
-        btn.removeAttribute('aria-disabled');
-        btn.style.pointerEvents = '';
-        btn.style.cursor = 'pointer';
-        btn.style.opacity = '1';
-      }
-    });
-    document.querySelectorAll('button.lock-btn').forEach(btn => {
-      if (disable) {
-        btn.classList.add('disabled');
-        btn.setAttribute('aria-disabled', 'true');
-        btn.style.pointerEvents = 'none';
-        btn.style.cursor = 'default';
-        btn.style.opacity = '0.5';
-      } else {
-        btn.classList.remove('disabled');
-        btn.removeAttribute('aria-disabled');
-        btn.style.pointerEvents = '';
-        btn.style.cursor = 'pointer';
-        btn.style.opacity = '1';
-      }
-    });
-  }
-
+  // Render acties buttons in 2 columns, respect locked state and completed state
   function renderActies() {
     column1.innerHTML = '';
     column2.innerHTML = '';
     const actieList = getActieList();
 
-    acties.slice(0, 6).forEach(actie => {
+    acties.forEach((actie, index) => {
       const row = document.createElement('div');
       row.className = 'actie-row';
+
       const btn = document.createElement('a');
       btn.className = 'actie-button';
       btn.textContent = actie.label;
       btn.href = '#';
       btn.dataset.actie = actie.id;
 
-      if (actieList.includes(actie.id)) {
+      if (actie.locked) {
+        btn.classList.add('locked');
+      } else if (actieList.includes(actie.id)) {
         btn.classList.add('disabled');
       }
 
       row.appendChild(btn);
-      column1.appendChild(row);
-    });
 
-    acties.slice(6).forEach((actie, idx) => {
-      const row = document.createElement('div');
-      row.className = 'actie-row';
+        if (actie.locked) {
+    // Determine if locked actie should be enabled based on currentCount
+    const currentCount = parseInt(localStorage.getItem(`currentCount_${eventKey}`), 10) || 0;
+    const lockedIndex = index - 6; // Because locked acties start at index 6
 
-      const btn = document.createElement('a');
-      btn.className = 'actie-button';
-      btn.textContent = actie.label;
-      btn.href = '#';
-      btn.dataset.actie = actie.id;
+    const isUnlocked = lockedIndex < currentCount;
 
-      if (isLockedUnlocked(idx)) {
-        if (actieList.includes(actie.id)) {
-          btn.classList.add('disabled');
-        }
-      } else {
-        btn.classList.add('locked');
-        btn.classList.remove('disabled');
+    if (isUnlocked) {
+      // Unlock actie button
+      btn.classList.remove('locked');
+      if (getActieList().includes(actie.id)) {
+        btn.classList.add('disabled');
+        btn.style.pointerEvents = 'none';
+        btn.style.opacity = '0.5';
       }
+    } else {
+      btn.classList.add('locked');
+      btn.classList.remove('disabled');
 
-      row.appendChild(btn);
+      // Lock button logic
+      const lockBtn = document.createElement('button');
+      lockBtn.className = 'lock-btn';
+      lockBtn.title = `Unlock ${actie.label} with password`;
+      lockBtn.innerHTML = '🔒';
 
-      if (!isLockedUnlocked(idx)) {
-        const lockBtn = document.createElement('button');
-        lockBtn.className = 'lock-btn';
-        lockBtn.title = 'Unlock with password';
-        lockBtn.setAttribute('aria-label', `Unlock ${actie.label} with password`);
-        lockBtn.innerHTML = '🔒';
-        row.appendChild(lockBtn);
-
-        lockBtn.addEventListener('click', () => {
-          const allBottomEnabled = Array.from(bottomLinkButtons).every(link => !link.classList.contains('disabled'));
-          if (allBottomEnabled) return;
-
-          const pwd = prompt(`Enter the password to unlock ${actie.label}:`);
-          if (passwords[actie.id] && passwords[actie.id].includes(pwd)) {
-            alert(`${actie.label} unlocked!`);
-            if (currentCount === idx) {
-              currentCount++;
-              localStorage.setItem(`currentCount_${eventKey}`, currentCount.toString());
-            }
-            renderActies();
-            updateCounters();
-          } else {
-            alert('Incorrect password. Please try again.');
+      lockBtn.addEventListener('click', () => {
+        const pwd = prompt(`Enter the password to unlock ${actie.label}:`);
+        if (passwords[actie.id] && passwords[actie.id].includes(pwd)) {
+          alert(`${actie.label} unlocked!`);
+          let currentCount = parseInt(localStorage.getItem(`currentCount_${eventKey}`), 10) || 0;
+          if (lockedIndex === currentCount) {
+            currentCount++;
+            localStorage.setItem(`currentCount_${eventKey}`, currentCount.toString());
           }
+          renderActies();
+          updateCounters();
+        } else {
+          alert('Incorrect password.');
+        }
+      });
 
-        });
+      row.appendChild(lockBtn);
+    }
+  }
+      // Append rows into 2 columns evenly
+      if (index < Math.ceil(acties.length / 2)) {
+        column1.appendChild(row);
+      } else {
+        column2.appendChild(row);
       }
-
-      column2.appendChild(row);
     });
+
+    attachActieClickListeners();
+    updateCounters();
   }
 
+  // Simple centered popup for clues
+function showPopup(text) {
+  let popup = document.getElementById('simple-popup');
+  if (!popup) {
+    popup = document.createElement('div');
+    popup.id = 'simple-popup';
+    popup.style = `
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #666;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      border: 3px solid black; /* solid black border */
+      z-index: 10000;
+      max-width: 320px;
+      box-shadow: 0 0 10px black;
+      user-select: text;
+      text-align: center;
+    `;
+
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '✖';
+    closeBtn.style = `
+      position: absolute;
+      top: 5px; right: 8px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      user-select: none;
+    `;
+    closeBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+
+    popup.appendChild(closeBtn);
+
+    const title = document.createElement('h2');
+    title.textContent = 'Aanwijzing:';
+    title.style = `
+      margin: 0 0 12px 0;
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: gold;
+      user-select: text;
+    `;
+    popup.appendChild(title);
+
+    const content = document.createElement('div');
+    content.id = 'popup-content';
+    content.style = `user-select: text;`;
+    popup.appendChild(content);
+
+    document.body.appendChild(popup);
+  }
+
+  popup.querySelector('#popup-content').textContent = text;
+  popup.style.display = 'block';
+  popup.focus();
+}
+
+function updateCounters() {
+  const currentCount = parseInt(localStorage.getItem(`currentCount_${eventKey}`), 10) || 0;
+  const actieList = getActieList();
+  const actiesDone = Math.min(actieList.length, 4);
+  actieCounter.textContent = `Acties voltooid: ${actiesDone}/4`;
+  qrCounter.textContent = `${currentCount}/6`;
+
+  if (actiesDone >= 4) {
+    bottomLinks.classList.remove('bottom-links-disabled');
+    bottomLinks.classList.add('bottom-links-enabled');
+    bottomLinkButtons.forEach(link => {
+      link.classList.remove('disabled');
+      link.removeAttribute('aria-disabled');
+      link.removeAttribute('tabindex');
+    });
+  } else {
+    bottomLinks.classList.remove('bottom-links-enabled');
+    bottomLinks.classList.add('bottom-links-disabled');
+    bottomLinkButtons.forEach(link => {
+      link.classList.add('disabled');
+      link.setAttribute('aria-disabled', 'true');
+      link.setAttribute('tabindex', '-1');
+    });
+  }
+}
+
+  // Attach click listeners to unlocked and enabled actie buttons
   function attachActieClickListeners() {
     document.querySelectorAll('a.actie-button:not(.locked):not(.disabled)').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.onclick = (e) => {
         e.preventDefault();
-
-        const allBottomEnabled = Array.from(bottomLinkButtons).every(link => !link.classList.contains('disabled'));
-        if (allBottomEnabled) return;
-
         const actie = btn.dataset.actie;
         if (!actie) return;
 
@@ -475,23 +519,20 @@
         if (!actieList.includes(actie)) {
           actieList.push(actie);
           saveActieList(actieList);
-          renderActies();
+          showPopup(cluesByActie[actie] || 'Geen aanwijzing beschikbaar.');
+          btn.classList.add('disabled');
+          btn.style.pointerEvents = 'none';
+          btn.style.opacity = '0.5';
           updateCounters();
+        } else {
+          showPopup('Deze actie is al bekeken.');
         }
-      }, { once: true });
+      };
     });
   }
 
+  // Initial render
   renderActies();
-  attachActieClickListeners();
-  updateCounters();
-
-  // Re-attach listeners after rerender
-  const originalRender = renderActies;
-  renderActies = function() {
-    originalRender();
-    attachActieClickListeners();
-  };
 </script>
 
 </body>

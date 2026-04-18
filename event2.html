@@ -14,7 +14,7 @@
       color: white;
       margin: 0;
       padding: 20px;
-      min-height: 100vh;
+      min-height: 50vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -255,7 +255,7 @@
   <nav class="bannerlink" aria-label="Hoofdnavigatie">
     <a href="index.html">Main Menu</a>
     <a href="verdachten.html">Verdachten</a>
-    <a href="journal.html">Journal</a>
+    <a href="journal.html">Notities</a>
   </nav>
 
   <main class="center-links" role="main" aria-label="Acties lijst">
@@ -286,21 +286,15 @@
     { id: 'actie4', label: 'Verhoor Quadquaet', locked: false },
     { id: 'actie5', label: 'Verhoor Johannes', locked: false },
     { id: 'actie6', label: 'Verhoor de Merseman', locked: false },
-    { id: 'actie7', label: 'Bestudeer het lichaam', locked: true },
-    { id: 'actie8', label: 'Actie 8', locked: true },
-    { id: 'actie9', label: 'Actie 9', locked: true },
-    { id: 'actie10', label: 'Actie 10', locked: true },
-    { id: 'actie11', label: 'Actie 11', locked: true },
-    { id: 'actie12', label: 'Zoek het moordwapen', locked: true }
   ];
 
   const passwords = {
-    'actie7': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie8': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie9': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie10': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie11': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie12': ['pass7', 'pass8','pass9','pass10','pass11','pass12']
+    'actie7': ['karel', 'denys','handel','bloed','val','frankrijk'],
+    'actie8': ['karel', 'denys','handel','bloed','val','frankrijk'],
+    'actie9': ['karel', 'denys','handel','bloed','val','frankrijk'],
+    'actie10': ['karel', 'denys','handel','bloed','val','frankrijk'],
+    'actie11': ['karel', 'denys','handel','bloed','val','frankrijk'],
+    'actie12': ['karel', 'denys','handel','bloed','val','frankrijk']
   };
 
   const column1 = document.querySelector('main.center-links .column:nth-child(1)');

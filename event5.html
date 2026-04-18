@@ -14,7 +14,7 @@
       color: white;
       margin: 0;
       padding: 20px;
-      min-height: 100vh;
+      min-height: 50vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -258,7 +258,7 @@
   <nav class="bannerlink" aria-label="Hoofdnavigatie">
     <a href="index.html">Main Menu</a>
     <a href="verdachten.html">Verdachten</a>
-    <a href="journal.html">Journal</a>
+    <a href="journal.html">Notities</a>
   </nav>
 
   <main class="center-links" role="main" aria-label="Acties lijst">
@@ -294,12 +294,12 @@
   ];
   
   const passwords = {
-    'actie7': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie8': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie9': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie10': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie11': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie12': ['pass7', 'pass8','pass9','pass10','pass11','pass12']
+    'actie7': ['lam gods', 'roland','koepel','glasraam','paneel','bavo'],
+    'actie8': ['lam gods', 'roland','koepel','glasraam','paneel','bavo'],
+    'actie9': ['lam gods', 'roland','koepel','glasraam','paneel','bavo'],
+    'actie10': ['lam gods', 'roland','koepel','glasraam','paneel','bavo'],
+    'actie11': ['lam gods', 'roland','koepel','glasraam','paneel','bavo'],
+    'actie12': ['lam gods', 'roland','koepel','glasraam','paneel','bavo']
   };
 
   const cluesByActie = {
@@ -307,7 +307,7 @@
     'actie2': 'Weelderige verbouwingen bij Jacob van Artevelde.',
     'actie3': 'Schrijven van Broeder Johannes aan lollards over "teologische" bondgenoten.',
     'actie4': 'Afpersing Brouwerij door Handlanger Lodewijk Manskint',
-    'actie5': 'Verzameling messen bij Jean Duval.',
+    'actie5': 'Verzameling messen en tuinscharen bij Jean Duval.',
     'actie6': 'Doos brieven van Elisabeth de Merseman aan Earl Pembroke.',
     'actie7': 'Operateksten gestuurd van de Graaf van Nevers aan Lievens Quadquaet',
     'actie8': 'Spullen van Lodewijk Manskint bij officieel Mirabello.',
@@ -496,6 +496,21 @@ function updateCounters() {
       link.removeAttribute('aria-disabled');
       link.removeAttribute('tabindex');
     });
+
+    // Disable all actie buttons
+    document.querySelectorAll('a.actie-button').forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.5';
+    });
+
+    // Disable all lock buttons if any
+    document.querySelectorAll('button.lock-btn').forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.5';
+    });
+
   } else {
     bottomLinks.classList.remove('bottom-links-enabled');
     bottomLinks.classList.add('bottom-links-disabled');

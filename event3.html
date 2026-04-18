@@ -14,7 +14,7 @@
       color: white;
       margin: 0;
       padding: 20px;
-      min-height: 100vh;
+      min-height: 50vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -262,7 +262,7 @@
   <nav class="bannerlink" aria-label="Hoofdnavigatie">
     <a href="index.html">Main Menu</a>
     <a href="verdachten.html">Verdachten</a>
-    <a href="journal.html">Journal</a>
+    <a href="journal.html">Notities</a>
   </nav>
 
   <main class="center-links" role="main" aria-label="Acties lijst">
@@ -298,16 +298,16 @@
   ];
   
   const passwords = {
-    'actie7': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie8': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie9': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie10': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie11': ['pass7', 'pass8','pass9','pass10','pass11','pass12'],
-    'actie12': ['pass7', 'pass8','pass9','pass10','pass11','pass12']
+    'actie7': ['getuige', 'kasteel','rechtbank','textiel','wachter','studenten'],
+    'actie8': ['getuige', 'kasteel','rechtbank','textiel','wachter','studenten'],
+    'actie9': ['getuige', 'kasteel','rechtbank','textiel','wachter','studenten'],
+    'actie10': ['getuige', 'kasteel','rechtbank','textiel','wachter','studenten'],
+    'actie11': ['getuige', 'kasteel','rechtbank','textiel','wachter','studenten'],
+    'actie12': ['getuige', 'kasteel','rechtbank','textiel','wachter','studenten']
   };
 
   const cluesByActie = {
-    'actie1': 'Oproep leden wevergilde om zich te bewapenen.',
+    'actie1': 'Oproep van Geeraert Denys aan leden wevergilde om zich te bewapenen.',
     'actie2': 'Geruchten dat Beatrijs zich ineens vaak kom biechten.',
     'actie3': 'Dronken beweringen van Lievens Quadquaet dat zijn geldproblemen opgelost zijn.',
     'actie4': 'Vergaderingnotities van Deslager met Edward III in London.',
@@ -500,6 +500,21 @@ function updateCounters() {
       link.removeAttribute('aria-disabled');
       link.removeAttribute('tabindex');
     });
+
+    // Disable all actie buttons
+    document.querySelectorAll('a.actie-button').forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.5';
+    });
+
+    // Disable all lock buttons if any
+    document.querySelectorAll('button.lock-btn').forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.5';
+    });
+
   } else {
     bottomLinks.classList.remove('bottom-links-enabled');
     bottomLinks.classList.add('bottom-links-disabled');

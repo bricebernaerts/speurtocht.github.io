@@ -233,6 +233,84 @@
   </style>
 </head>
 <body>
+  
+<div id="intro-overlay" aria-live="polite" role="alert" style="
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
+  user-select: none;
+  z-index: 99999;
+  opacity: 1;
+  transition: opacity 2s ease;
+  gap: 2rem;
+">
+
+  <div>Je bent aan de plaats van het misdrijf aangekomen, het huis van slachtoffer Willem de Merseman, om daar al het mogelijke bewijsmateriaal te verzamelen. Bewaker Petrus Boomans staat klaar om je te ontvangen.</div>
+</div>
+
+<div id="tutorial-popup" role="dialog" aria-modal="true" aria-labelledby="tutorial-title" style="
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.95);
+  color: gold;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 0 20px 4px gold;
+  font-size: 1.2rem;
+  z-index: 100001;
+  user-select: text;
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+">
+  <div id="tutorial-title" style="
+    border: 3px solid gold;
+    border-radius: 10px;
+    padding: 0.6rem 1.1rem;
+    font-weight: 700;
+    font-size: 1.4rem;
+    background: black;
+    user-select: text;
+  ">Handleiding</div>
+  <div id="tutorial-text" style="
+    border: 3px solid gold;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    background: black;
+    user-select: text;
+    min-height: 6.5rem;
+    font-weight: 500;
+    font-size: 1.15rem;
+    line-height: 1.4;
+  "></div>
+  <button id="tutorial-next-btn" aria-label="Volgende stap" style="
+    align-self: center;
+    margin-top: 0.5em;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.6em 1.4em;
+    border-radius: 8px;
+    border: 3px solid gold;
+    background: black;
+    color: gold;
+    cursor: pointer;
+    user-select: none;
+  ">Volgende</button>
+</div>
+
   <div id="main-body" role="main">
     <header id="header" role="banner" aria-label="Page title and navigation">
       <div id="page-title" style="user-select:text;">Verhoor: Petrus</div>
@@ -269,8 +347,55 @@
       <button id="continue-button" class="hidden" aria-label="Continue to Event 1">Doorgaan</button>
     </nav>
   </div>
+  
+  
 
   <script>
+    
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('intro-overlay');
+  const tutorialPopup = document.getElementById('tutorial-popup');
+  const tutorialText = document.getElementById('tutorial-text');
+  const tutorialNextBtn = document.getElementById('tutorial-next-btn');
+
+  const tutorialPopups = [
+    'Je bent belast met de jacht op de moordenaar van Willem van Merseman. Hiervoor heb je 6 events om te bepalen welke van 6 verdachten de dader is.',
+    'Bij elk event heb je een beperkt aantal opzoekingen of acties die je kan doen. De limiet wordt telkens zichtbaar aangegeven in de bovenste banner van het eventscherm.',
+    'Er zijn altijd meerdere opties automatisch terbeschikking. Zoek passcodes in de wandeling en dien deze in door op het slot te clicken om toegang te krijgen tot meer opties.',
+    'Handelingen produceren aanwijzingen die hier automatisch worden genoteerd. In de tab "verdachten" zijn de aanwijzingen gesorteerd bij de betrokken verdachte.',
+    'Op het einde van de wandeling moet je een dader aanduiden. Aarzel niet om feiten met je medespelers te bespreken en strategisch keuzes te maken bij het onderzoeken van handelingen. Veel plezier!'
+  ];
+
+  let currentStep = 0;
+
+  // Function to show current popup step
+  function showStep() {
+    tutorialText.textContent = tutorialPopups[currentStep];
+    tutorialPopup.style.display = 'flex';
+    tutorialNextBtn.focus();
+  }
+
+  // Start tutorial popups sequence 1s after overlay fade out
+  setTimeout(() => {
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      showStep();
+    }, 2000 + 500);
+  }, 4000);
+
+  // If you have a doorgaan button inside overlay, add its event listener here similarly
+
+  tutorialNextBtn.addEventListener('click', () => {
+    currentStep++;
+    if (currentStep >= tutorialPopups.length) {
+      tutorialPopup.style.display = 'none';
+      return;
+    }
+    showStep();
+  });
+});
+    
     const dialogueData = {
       diai1: {
         text: `Mijnheer de baljuw. Ge vraagt mij wat ik gezien heb? Ik zal het u zeggen. Toen Willem viel, stond ik buiten, zoals meerdere getuigen kunnen bevestigen. Binnenin waren ze met zes... Buiten Lievens vetrouw ik hen voor geen haar.`,
@@ -534,6 +659,7 @@ addInleidingCluesToJournal();
 
     // Initialize with start node
     renderDialogue('diai1');
+
   </script>
 </body>
 </html>
